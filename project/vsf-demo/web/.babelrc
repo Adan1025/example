@@ -1,0 +1,11 @@
+{
+  "presets": ["es2015"],
+  "plugins": [
+        ['transform-runtime', {
+              helpers: false,
+              polyfill: false,
+              regenerator: true, }],
+              // transform-object-rest-spread 对...结构的扩展。因为ES6只支持对数组的解构赋值，对对象是不支持的。
+        'transform-object-rest-spread'
+        ]
+}

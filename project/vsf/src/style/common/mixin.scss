@@ -1,0 +1,60 @@
+@mixin height($height: 1rem) {
+    height: $height;
+    line-height: $height;
+}
+// 按下去背景颜色
+@mixin tap-bg-color($color: #fff, $opacity: .9) {
+    background-color: $color;
+    &:active{
+        background-color: $color * $opacity;
+    }
+}
+// 按下去背景颜色 + 字体
+@mixin  tap-color($color:#111, $bgColor: #fff, $opacity: .9){
+    @include tap-bg-color($bgColor, $opacity);
+    color: $color;
+}
+
+@mixin box-sizing($type: border-box) {
+    box-sizing: $type;
+    -webkit-box-sizing: $type;
+}
+
+// flexbox
+@mixin disflex{
+    display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox; /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Chrome */
+    display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+@mixin flex($flex: 1){
+    -webkit-box-flex: $flex; /* OLD - iOS 6-, Safari 3.1-6 */
+    -moz-box-flex: $flex; /* OLD - Firefox 19- */
+    -webkit-flex: $flex; /* Chrome */
+    -ms-flex: $flex; /* IE 10 */
+    flex: $flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+
+/*圆角*/
+@mixin radius-bottom($radius: .2rem) {
+    border-bottom-left-radius: $radius;
+    border-bottom-right-radius: $radius;
+}
+@mixin radius-top($radius: .2rem) {
+    border-top-left-radius: $radius;
+    border-top-right-radius: $radius;
+}
+
+@mixin animation($name, $duration: .3s, $count: 1, $delay: 0s){
+    animation-name: $name; /*动画名称*/
+    -webkit-animation-name: $name; /*动画名称*/
+    animation-duration: $duration; /*动画持续时间*/
+    -webkit-animation-duration: $duration; /*动画持续时间*/
+    animation-iteration-count: $count; /*动画次数*/
+    -webkit-animation-iteration-count: $count; /*动画次数*/
+    animation-delay:  $delay; /*延迟时间*/
+    -webkit-animation-delay:  $delay; /*延迟时间*/
+    animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
+}

@@ -1,0 +1,60 @@
+@import "../common/variables.scss";
+@import "../common/mixin.scss";
+@import "../common/public.scss";
+.#{$css-prefix}{
+    &-btn-group{
+        display: block;
+        width: 100%;
+        padding: 0 .2rem;
+        background: transparent;
+        @include  box-sizing;
+    }
+    &-btn{
+        display: block;
+        margin-top: .3rem;
+        width: 100%;
+        @include  height($btn-height);
+        border: 1px solid $gray-color;
+        font-size: .42rem;
+
+        /*public 公共背景色测试*/
+        /* color: #111;
+        background-color: #fff;
+        @include tap-color; */
+        /*大小*/
+        &-small{
+            display: inline-block;
+            margin-top: .3rem;
+            padding: 0 .5rem;
+            width: auto;
+            @include height($btn-small-height)
+            font-size: .38rem;
+        }
+        /*类型*/
+
+        /*public 公共背景色测试*/
+        /* &-rise{
+            @include tap-color(#fff, $rise-color);
+        }
+        &-fall{
+            @include tap-color(#fff, $fall-color);
+        }
+        &-disabled{
+            @include tap-color(#fff, $disabled-color);
+            pointer-events: none;
+        }
+        &-primary{
+            @include tap-color(#fff, $primary-color);
+        }
+        &-danger{
+            @include tap-color(#fff, $danger-color);
+        } */
+        /*圆角*/
+        &-circular{
+            border-radius: $btn-height;
+        }
+        &-half{
+            border-radius: $btn-small-height / 4
+        }
+    }
+}

@@ -1,0 +1,27 @@
+@import "../variables.scss";
+@import "../mixin.scss";
+.#{$prefix}{
+    &-sidebar{
+        display: block;
+        width: 100%;
+        background-color: $bg-main-color;
+    }
+    &-sidebar{
+        margin-bottom: 10px;
+    }
+    &-brand{
+        text-align: center;
+        margin-bottom: 20px;
+        &-meta{
+            height: 110px;
+            background-color: $bg-header-color;
+            color: $ft-f2-color;
+        }
+        &-title{
+            display: block;
+            font-size: 18px;
+            @include height(70px);
+            color: $ft-f4-color;
+        }
+    }
+}

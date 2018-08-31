@@ -1,0 +1,50 @@
+// 统一前缀
+$prefix: sf;
+
+// 背景颜色
+$bg-body-color: #efefef;
+
+// 主色调
+$bg-logo-color: #ff6830;// #20a0ff;
+
+// 字体颜色
+$ft-default-color: #111;
+
+// 整体最大宽度
+$max-width: 70rem;
+
+// 左右宽度
+// $left-width: 40rem;
+// $right-width: 25rem;
+
+$max-media-width: 800px;
+
+
+@mixin container() {
+    margin: 0 auto;
+    max-width: $max-width;
+}
+
+@mixin lheight($h: 1rem) {
+    height: $h;
+    line-height: $h;
+}
+
+@mixin box-sizing($border: border-box){
+    -webkit-box-sizing: $border;
+    -moz-box-sizing: $border;
+    -o-box-sizing: $border;
+    box-sizing: $border;
+}
+
+@mixin dflex() {
+    display: -webkit-flex; /* Safari */
+    display: flex;
+}
+
+@mixin text-clamp($num: 3) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $num;
+    overflow: hidden;
+}

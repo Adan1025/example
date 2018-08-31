@@ -1,0 +1,64 @@
+@import '../common/layout.scss';
+$prefix: c;
+
+$bg-box-color: #fff;
+$bg-box-bottom: 1px solid #999;
+
+$ft-meta: #999; // article meta| author description
+
+$pt: .5rem;
+$pl: 1rem;
+
+// whiteSeat 占位色
+$white-seat: #eee;
+
+.white-seat{
+    background-color: $white-seat;
+}
+
+
+.#{$prefix} {
+    &-box{
+        padding: $pt $pl;
+        margin-bottom: .5rem;
+        width: 100%;
+        @include box-sizing;
+        background-color: $bg-box-color;
+        overflow: hidden;
+        &-header {
+            padding-bottom: $pt;
+            border-bottom: $bg-box-bottom;
+        }
+    }
+
+    &-container{
+        @include dflex;
+        @include container;
+        margin-top: .5rem;
+    }
+
+    &-left {
+        flex: 1;
+        display: inline-block;
+        // border: 1px solid #111;
+        @include box-sizing;
+        overflow: hidden;
+    }
+
+    &-right {
+        padding-left: 1rem;
+        flex: 0 0 35%;
+        // width: $right-width;
+        // border: 1px solid #111;
+        @include box-sizing;
+        overflow: hidden;
+    }
+
+    
+    @media screen and (max-width: $max-media-width){
+        &-right {
+            flex: 0;
+            display: none;
+        }
+    }
+}

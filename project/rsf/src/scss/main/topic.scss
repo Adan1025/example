@@ -1,0 +1,33 @@
+@import './index.scss';
+@mixin wh() {
+    width: 100%;
+    height: 100%;
+}
+
+.#{$prefix} {
+    &-topic{
+        position: relative;
+        height: 10rem;
+        overflow: hidden;
+
+        &-item {
+            @include wh;
+            color: #ddd;
+
+            > img{
+                @include wh;
+            }
+            > p {
+                position: absolute;
+                padding: 0 .3rem;
+                width: 100%;
+                bottom: 0;
+                @include lheight(1.5rem);
+                font-size: 80%;
+
+                @include box-sizing;
+                background-color: rgba($color: #000, $alpha: .1);
+            }
+        }
+    }
+}

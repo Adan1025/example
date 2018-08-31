@@ -1,0 +1,14 @@
+function getUsersInfoById(id) {
+    // 获取用户信息
+}
+function getArticleListByUserId(id){
+    // 获取用户的文章列表
+}
+
+function getUserAndArticleInfo(id){
+    var userinfo = getUsersInfoById(id);
+    var articleList = getArticleListByUserId(id);
+    $('body').html(JSON.string(userinfo),JSON.string(articleList))
+}
+
+getUserAndArticleInfo(1);

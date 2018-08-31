@@ -1,0 +1,57 @@
+.editor {
+    color: #111;
+    blockquote{
+        border-left: 4px solid #ccc;
+        margin-bottom: 5px;
+        margin-top: 5px;
+        padding-left: 10px;
+    }
+    pre{
+        margin-bottom: 5px;
+        margin-top: 5px;
+        padding: 5px 10px;
+        background-color: #efefef;
+        // background-color: #23241f;
+        // color: #f8f8f2;
+        line-height: 2;
+        overflow: visible;
+        white-space: pre-wrap;
+    }
+    ol, ul {
+        padding-left: 1.5em;
+    }
+    ul li:not(.ql-direction-rtl)::before ,
+    ol li:not(.ql-direction-rtl)::before {
+        content: '\2022';
+        margin-left: -1.5em;
+        margin-right: 0.3em;
+        text-align: right;
+    }
+    // li:before {
+    //     margin-left: -1.5em;
+    //     margin-right: 0.3em;
+    //     text-align: right;
+    // }
+    ol li:not(.ql-direction-rtl),
+    ul li:not(.ql-direction-rtl) {
+        padding-left: 1.5em;
+    }
+    h1{
+        font-size: 2em;
+    }
+    h2{
+        font-size: 1.5em;
+    }
+    a {
+        color: #06c;
+    }
+    .ql-align-center{
+        text-align: center;
+    }
+    .ql-align-right {
+        text-align: right;
+    }
+    .ql-align-justify {
+        text-align: justify;
+    }
+}

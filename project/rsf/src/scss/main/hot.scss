@@ -1,0 +1,58 @@
+@import './index.scss';
+
+$label-color-no1: #fd8c84;
+$label-color-no2: #6fc299;
+$label-color-no3: #81c1f2;
+$label-color-default: #999;
+
+$labellist: $label-color-no1, $label-color-no2, $label-color-no3, $label-color-default, $label-color-default;
+
+.#{$prefix} {
+    &-hot{
+        padding-top: $pt;
+
+        &-item{
+            a{
+                @include dflex;
+                justify-content: space-between;
+            }
+
+
+            @for $i from 1 through 5 {
+                &:nth-child(#{$i}){
+                    span:first-child:before{
+                        content: '' + $i;
+                        background-color: nth($labellist, $i);
+                    }
+                }
+            }
+            :hover{
+                color: #fd8c84;
+            }
+        }
+
+        &-title{
+            flex: 1;
+            overflow: hidden;
+            @include lheight(2rem);
+
+            &:before{
+                $rm: 1.2rem;
+                float: left;
+                margin-top: .4rem;
+                margin-right: 0.5rem;
+                width: $rm;
+                @include lheight($rm);
+                color: #fff;
+                text-align: center;
+                font-size: 80%;
+                background-color: $label-color-default; 
+
+            }
+            
+        }
+        &-praise{
+            flex: 0 0 2rem;            
+        }
+    }
+}

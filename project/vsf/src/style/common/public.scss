@@ -1,0 +1,27 @@
+@import "./variables.scss";
+@import "./mixin.scss";
+.#{$css-prefix}{
+    &-type{
+        /*背景色*/
+        @include tap-color(#000, $default-color);
+        &-rise{
+            @include tap-color(#fff, $rise-color);
+        }
+        &-fall{
+            @include tap-color(#fff, $fall-color);
+        }
+        &-disabled{
+            pointer-events: none;
+            @include tap-color(#fff, $disabled-color);
+        }
+        &-primary{
+            @include tap-color(#fff, $primary-color);
+        }
+        &-danger{
+            @include tap-color(#fff, $danger-color);
+        }
+        &-default{
+            @include tap-color(#000, $default-color);
+        }
+    }
+}

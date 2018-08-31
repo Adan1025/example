@@ -1,0 +1,10 @@
+@import './index.scss';
+
+
+
+.#{$prefix} {
+    &-logo {
+        height: 6rem;
+        background-color: $bg-logo-color;
+    }
+}

@@ -1,0 +1,28 @@
+@import "../variables.scss";
+@import "../mixin.scss";
+.#{$prefix} {
+    &-navbar {
+        display: block;
+        &-item {
+            display: block;
+            padding: 0 15px 0 21px;
+            @include height(40px);
+            @include border-bottom;
+            cursor: pointer;
+            color: $ft-f6-color;
+        }
+        &-item.curr {
+            background-color: $bg-curr-color;
+            &:after {
+                content: ' ';
+                display: inline-block;
+                float: right;
+                margin-top: 18px;
+                width: 6px;
+                height: 6px;
+                background-color: $bg-curr-after-color;
+                border-radius: 50%;
+            }
+        }
+    }
+}

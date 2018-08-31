@@ -1,0 +1,134 @@
+@import "../variables.scss";
+@import "../mixin.scss";
+.#{$prefix} {
+    &-article {
+        position: relative;
+        // padding: 20px 40px 5px;
+        padding-top: 20px;
+        padding-right: 40px;
+        padding-bottom: 5px;
+        &-info{
+            padding-left: 40px;
+        }
+        @include border-bottom;
+        &-self{
+            opacity: 0;
+            @include transition(0.5s);
+            &-animate{
+                opacity: 1;
+                padding-left: 40px;
+            }
+        }
+        &-type {
+            float: right;
+            color: #ababab;
+            &-list {
+                width: 40%;
+                opacity: 0;
+                @include transition(0.5s);
+                &-animate{
+                    opacity: 1;
+                    margin-left: 40px;
+                }
+            }
+            &-num {
+                font-size: 12px;
+                color: #111;
+            }
+        }
+        &-list {
+            &-item {
+                @include text-clamp(1);
+                padding-left: 20px;
+                width: 80%;
+                border-bottom-style: dashed;
+                opacity: 0;
+                @include transition(0.5s);
+                &-animate{
+                    opacity: 1;
+                    margin-left: 5%;
+                    padding-left: 40px;
+                }
+            }
+        }
+        &-smalltitle {
+            font-size: 16px;
+        }
+        &-title {
+            width: 80%;
+            font-size: 24px;
+            word-break: break-word;
+            font-weight: 400;
+            @include text-clamp(1);
+            // @include height(40px);
+        }
+        &-box {
+            position: relative;
+
+            padding: 10px 0;
+            // height: 140px;
+        }
+        &-box.mleft{
+             margin-left: 160px;
+        }
+        &-img {
+            position: absolute;
+            top: 30px;
+            // left: 40px;
+            width: 130px;
+            height: 130px;
+            @include border;
+        }
+        &-info {
+        }
+        &-description {
+            margin: 6px 0;
+            height: 60px;
+            line-height: 20px;
+            text-indent: 2em;
+            @include text-clamp(3);
+        }
+        &-content {
+            padding: 10px 15px;
+            margin-top: 5px;
+            @include box-sizing;
+        }
+        &-meta {
+            margin-top: 10px;
+            font-size: 12px;
+            font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+            color: $ft-f3-color;
+            span {
+                &:after {
+                    content: '|';
+                    display: inline-block;
+                    margin: 0 5px;
+                }
+                &:last-child:after {
+                    content: '';
+                }
+            }
+        }
+    }
+}
+
+@keyframes article{
+    from {
+        opacity: 0;
+        padding-left: 0;
+    }
+    to {
+        opacity: 1;
+        padding-left: 40px;
+    }
+}
+@-webkit-keyframes article{ /* Safari 和 Chrome */
+    from {
+        opacity: 0;
+        padding-left: 0;
+    }
+    to {
+        opacity: 1;
+        padding-left: 40px;
+    }
+}

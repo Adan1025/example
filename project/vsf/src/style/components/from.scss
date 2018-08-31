@@ -1,0 +1,84 @@
+@import "../common/variables.scss";
+@import "../common/mixin.scss";
+@import "../common/extend.scss";
+
+$label-color: #333;
+$font-color: #888;
+$group-border-color: #b2b2b2;
+$item-border-color: #d9d9d9;
+
+.#{$css-prefix}{
+    &-from{
+        &-group{
+            background-color: #f5f5f5;
+            border-bottom: 1px solid $group-border-color;
+            &-title{
+                display: block;
+                padding: .3rem .4rem .1rem .4rem;
+                font-size: .32rem;
+                color: $font-color;
+            }
+            &-box{
+                padding: 0 .2rem;
+                background-color: $default-color;
+            }
+        }
+        &-item{
+            @include disflex;
+            flex-wrap: wrap ;
+            justify-content: space-between;
+            font-size: .36rem;
+            border-bottom: 1px solid $item-border-color;
+        }
+        &-item:last-child{
+            border-bottom: 0;
+        }
+        &-left,&-right{
+            display: inline-block;
+            @include disflex;
+            @include height(1rem);
+        }
+        &-left{
+            padding: 0 .2rem;
+            color: $label-color;
+        }
+        &-right{
+            @include flex;
+            justify-content: flex-end;
+            color: $font-color;
+            font-size: .3rem;
+            input[type="text"]{
+                width: 100%;
+                @include height(1rem);
+            }
+            input[type="radio"]{
+                width: .4rem;
+                height: .4rem;
+                border: 1px solid $disabled-color;
+                border-radius: 50%;
+                margin-top: .3rem;
+                &:checked{
+                    position: relative;
+                    background-color: $primary-color;
+                    // background-color: $primary-color;
+                    // box-shadow: 0 0 1px $primary-color;
+                    @extend .iconfont;
+                    &:before{
+                        content: '\E645';
+                        display: inline-block;
+                        position: absolute;
+                        top: .03rem;
+                        left: .05rem;
+                        width: .28rem;
+                        @include height(0.28rem);
+                        color: #fff;
+                        font-size: .28rem;
+                    }
+                }
+            }
+        }
+        &-arrow:after{
+            @extend .icon-right:before;
+        }
+    }
+}

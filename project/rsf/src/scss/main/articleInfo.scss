@@ -1,0 +1,64 @@
+@import './index.scss';
+$meta-color: #999;
+
+html body h1, html body h2, html body h3, html body h4, html body h5, html body h6 {
+    line-height: 1.2;
+    margin-top: 1em;
+    /* margin-bottom: 16px; */
+    color: #000;
+}
+
+.#{$prefix} {
+    &-articleinfo{
+        position: relative;
+        width: 100%;
+        padding-top: 1rem;
+        padding-right: 2rem;
+        padding-bottom: .25rem;
+        padding-left: 2rem;
+        background-color: #fff;
+        @include box-sizing;
+
+        &-title{
+            height: 2.5rem;;
+            font-size: 2rem;
+        }
+        &-content {
+            padding: 10px 15px;
+            margin-top: 5px;
+            min-height: 30rem;
+            @include box-sizing;
+        }
+        &-meta {
+            margin-top: 10px;
+            font-size: 12px;
+            font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+            color: $ft-meta;
+            &-publishDate,
+            &-atype,
+            &-visitors{
+                height: 1.25rem;
+            }
+            &-publishDate{
+                width: 7.6rem;
+            }
+            &-atype{
+                width: 3.6rem;
+            }
+            &-visitors{
+                width: 2.8rem;
+            }
+            span {
+                display: inline-block;
+                &:after {
+                    content: '|';
+                    display: inline-block;
+                    margin: 0 5px;
+                }
+                &:last-child:after {
+                    content: '';
+                }
+            }
+        }
+    }
+}

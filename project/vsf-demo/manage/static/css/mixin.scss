@@ -1,0 +1,59 @@
+@import "./variables.scss";
+@mixin height($height: 10px) {
+    height: $height;
+    line-height: $height;
+}
+@mixin border($width: 1px, $color: $bor-b1-color) {
+    border: 1px solid $color;
+}
+@mixin border-bottom($width: 1px, $color: $bor-b1-color) {
+    border-bottom: 1px solid $color;
+}
+
+// 按下去背景颜色
+@mixin tap-bg-color($color: #fff, $opacity: .9) {
+    background-color: $color;
+    &:active{
+        background-color: $color * $opacity;
+    }
+}
+@mixin box-sizing($type: border-box) {
+    box-sizing: $type;
+    -webkit-box-sizing: $type;
+}
+
+// 按下去背景颜色 + 字体
+@mixin  tap-color($color:#111, $bgColor: #fff, $opacity: .9){
+    @include tap-bg-color($bgColor, $opacity);
+    color: $color;
+}
+
+
+// flexbox
+@mixin disflex{
+    display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox; /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Chrome */
+    display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+@mixin flex($flex: 1){
+    -webkit-box-flex: $flex; /* OLD - iOS 6-, Safari 3.1-6 */
+    -moz-box-flex: $flex; /* OLD - Firefox 19- */
+    -webkit-flex: $flex; /* Chrome */
+    -ms-flex: $flex; /* IE 10 */
+    flex: $flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+
+@mixin direction($column: column){
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: $column;
+    flex-direction: $column;
+}
+@mixin align($stretch: stretch){
+    -webkit-box-align: $stretch;
+    -ms-flex-align: $stretch;
+    align-items: $stretch;
+}
+

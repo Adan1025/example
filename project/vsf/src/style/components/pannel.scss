@@ -1,0 +1,94 @@
+@import "../common/variables.scss";
+@import "../common/mixin.scss";
+@import "../common/extend.scss";
+
+
+$_prefix: #{$css-prefix}-pannel;
+$_prefix_header: #{$_prefix}-header;
+$_prefix_body: #{$_prefix}-body;
+$_pannel_hide: #{$_prefix}-hide;
+/*私有mixin  设置pannel背景 边框*/
+@mixin set-color ($bgColor: $primary-color, $color: #fff){
+    .#{$_prefix_header}{
+        border: 1px solid $bgColor;
+        @include tap-color($color, $bgColor);
+    }
+    .#{$_prefix_body}{
+        border: 1px solid $bgColor;
+    }
+}
+.#{$css-prefix}{
+    &-pannel{
+        margin-bottom: .2rem;
+
+        /* 面板展开/收缩-  展示 及 动画*/
+        .#{$_prefix}-expand:before{
+            @extend .icon-unfold:before;
+        }
+        &-hide{
+            .#{$_prefix}-expand:before{
+                @extend .icon-right:before;
+            }
+        }
+
+        /*圆角*/
+        &-half{
+            .#{$_prefix_header}{
+                @include radius-top;
+            }
+            .#{$_prefix_body}{
+                @include radius-bottom;
+            }
+        }
+        &-half.#{$_pannel_hide}{
+            .#{$_prefix_header}{
+                @include radius-bottom;
+            }
+        }
+        /*颜色 默认primary*/
+        /*public 公共背景色测试*/
+        &-danger{
+            @include set-color($danger-color)
+        }
+        &-fall{
+            @include set-color($fall-color)
+        }
+
+
+        &-header{
+            border: 1px solid $disabled-color;
+            padding: 0 .2rem;
+            @include height($pannel-height);
+            /*public 公共背景色测试*/
+            @include tap-color(#111, $gray1-color);
+            font-size: $default-font-size;
+            @include disflex;
+        }
+        &-title{
+            @include flex;
+        }
+        &-icon{
+            width: 10%;
+            text-align: center;
+            font-size: .4rem;
+        }
+        &-body{
+            border: 1px solid $disabled-color;
+            border-top-width: 0;
+            background-color: $default-color;
+            @include  box-sizing;
+            padding: .2rem .25rem;
+            font-size: .36rem;
+            @include animation(fadeIn);
+        }
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0; /*初始状态 透明度为0*/
+    }
+    100% {
+        opacity: 1; /*结尾状态 透明度为1*/
+    }
+}

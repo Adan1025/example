@@ -1,0 +1,97 @@
+@import './index.scss';
+
+$bg-navbar-color: #827373; //#4a4a4a;
+$bg-navbar-min-color: #f9b59c;
+$bg-navbar-curr-color: $bg-logo-color;
+$bg-navbar-curr-min-color: #fff;
+
+// navbar文字颜色
+$ft-color: #fff;
+$ft-color-min: #FFF;
+
+// 小屏边线颜色
+$bd-color: #ddd;
+
+.#{$prefix} {
+    position: relative;
+    &-navbar {
+        $height: 2.5rem;
+        &-main{
+            height: $height;
+            background-color: $bg-navbar-color;
+        }
+
+        &-menu{
+            @include container;  
+            height: $height;
+            background-color: $bg-navbar-color;
+            li{
+                float: left;
+                margin-right: 1px;
+                &:after{
+                    margin-right: 0;
+                }
+                line-height: $height;
+                a{
+                    display: inline-block;
+                    padding: 0 1.5rem;
+                    height: 100%;
+                    color: $ft-color;
+                }
+                &.curr,
+                a:hover{
+                    background-color: $bg-navbar-curr-color;
+                }
+            }
+        }
+
+        &-float{
+            display: none;
+
+            li{
+                width: 1.5rem;
+                height: .2rem;
+                background-color: #fff;
+                margin-bottom: .15rem;
+            }
+        }
+        @media screen and (max-width: $max-media-width){
+            &-main{
+                display: none;
+                height: auto;
+            }
+            &-main.curr{
+                display: block;
+            }
+            &-menu{
+                height: auto;
+            }
+            &-menu,
+            &-menu li{
+                float: none;
+                width: 100%;
+                background-color: $bg-navbar-min-color;
+                border-bottom: 1px solid $bd-color;
+                
+                &.curr{
+                    background-color: inherit;
+                }
+                a{
+                    width: 100%;
+                    color: $ft-color-min;
+                }
+                a:hover{
+                    background-color: $bg-navbar-curr-min-color;
+                }
+            }
+
+            &-float{
+                display: block;
+                position: absolute;
+                top: 1.5rem;
+                left: 1.5rem;
+            }
+        }
+       
+    }
+}

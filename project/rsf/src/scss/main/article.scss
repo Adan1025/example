@@ -1,0 +1,90 @@
+@import './index.scss';
+$meta-color: #999;
+
+.#{$prefix} {
+    &-article{
+
+        font-size: 80%;
+
+        &-header{
+            > span {
+                display: inline-block;
+                @include box-sizing;
+            }
+        }
+        
+        &-type{
+            position: relative;
+            margin: .5rem;
+            padding: 0 .25rem;
+            @include lheight(1.25rem);
+            color: #fff;
+            background-color: $bg-logo-color;
+
+            &:after {
+                content: ' ';
+                width: 0;
+                height: 0;
+                $wd: .3rem;
+                border-left: $wd solid $bg-logo-color;
+                border-top: $wd solid transparent;
+                border-bottom: $wd solid transparent;
+                position: absolute;
+                right: -.3rem;
+                top: .325rem;
+            }
+        }
+
+        &-title{
+            @include lheight(2.25rem);
+            font-size: 130%;
+        }
+
+        &-main{
+            @include dflex;
+
+            > img {
+                // flex: 0 0 3rem;
+                width: 10rem;
+                height: 6rem;
+            }
+            > div{
+                flex: 1;
+                padding-left: 1rem;
+                height: 300%;
+                word-wrap:break-word; 
+                word-break:break-all;
+                overflow: hidden;
+                @include text-clamp;
+            }
+            
+            @media screen and (max-width: $max-media-width){
+                > img{
+                    display: none;
+                }
+                > div{
+                    // padding-left: 0;
+                }
+            }
+        }
+
+        &-meta {
+            margin-top: 10px;
+            text-align: right;
+            font-size: 12px;
+            font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+            color: $meta-color;
+
+            span {
+                &:after {
+                    content: '|';
+                    display: inline-block;
+                    margin: 0 5px;
+                }
+                &:last-child:after {
+                    content: '';
+                }
+            }
+        }
+    }
+}

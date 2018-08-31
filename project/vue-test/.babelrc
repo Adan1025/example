@@ -1,0 +1,13 @@
+{
+    "presets": [
+        "es2015",
+        "stage-3" // async/await
+    ],
+    "plugins": [
+        // 解决编译打包后 $export is not a function  异常
+        ['transform-runtime', {
+          helpers: false,
+          polyfill: false,
+          regenerator: true, }]
+    ]
+}

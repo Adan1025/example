@@ -1,0 +1,49 @@
+@import "../variables.scss";
+@import "../mixin.scss";
+.#{$prefix} {
+    &-hotpanel{
+        margin-top: 10px;
+        background-color: $bg-main-color;
+        h3{
+            padding: 5px 10px;
+            font-size: 14px;
+            border-bottom: 1px solid $bor-b1-color;
+        }
+        &-list{
+        }
+        &-item{
+            padding: 0 10px;
+            $li-height: 32px;
+            height: $li-height;
+            span{
+                height: $li-height;
+                line-height: $li-height;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+            a{
+                cursor: pointer;
+                display:block;
+                height: $li-height;
+                line-height: $li-height;
+                border-bottom: 1px solid $bor-b1-color;
+            }
+            &-title{
+                display: inline-block;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow:ellipsis;
+                width: 155px;
+            }
+            &-time{
+                float: right;
+                display: inline-block;
+                width: 75px;
+                text-align: center;
+            }
+            &:hover{
+                background-color: $hov-bg-color;
+            }
+        }
+    }
+}

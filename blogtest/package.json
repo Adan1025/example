@@ -1,0 +1,146 @@
+{
+    "name": "qualc-blog-cn",
+    "displayName": "qualc.blog.cn",
+    "description": "",
+    "version": "0.0.1",
+    "publisher": "qualc",
+    "engines": {
+        "vscode": "^0.10.5"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:extension.qualc.blog.addArticle",
+        "onCommand:extension.qualc.blog.addArticleType",
+        "onCommand:extension.qualc.blog.addArticleSeries",
+        "onCommand:extension.qualc.blog.removeFileName"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "extension.qualc.blog.addArticle",
+                "title": "发布文章"
+            },
+            {
+                "command": "extension.qualc.blog.addArticleType",
+                "title": "添加文章类型"
+            },
+            {
+                "command": "extension.qualc.blog.addArticleSeries",
+                "title": "添加文章系列"
+            },
+            {
+                "command": "extension.qualc.blog.removeFileName",
+                "title": "删除文件id前缀"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "when": "resourceLangId == html",
+                    "command": "extension.qualc.blog.addArticle",
+                    "group": "qualc-blog-cn"
+                },
+                {
+                    "when": "resourceLangId == html",
+                    "command": "extension.qualc.blog.addArticleType",
+                    "group": "qualc-blog-cn"
+                },
+                {
+                    "when": "resourceLangId == html",
+                    "command": "extension.qualc.blog.addArticleSeries",
+                    "group": "qualc-blog-cn"
+                },
+                {
+                    "when": "resourceLangId == html",
+                    "command": "extension.qualc.blog.removeFileName",
+                    "group": "qualc-blog-cn"
+                }
+            ],
+            "editor/title": [
+                {
+                    "when": "resourceLangId == html",
+                    "command": "extension.qualc.blog.addArticle",
+                    "group": "qualc-blog-cn"
+                },
+                {
+                    "when": "resourceLangId == html",
+                    "command": "extension.qualc.blog.addArticleType",
+                    "group": "qualc-blog-cn"
+                },
+                {
+                    "when": "resourceLangId == html",
+                    "command": "extension.qualc.blog.addArticleSeries",
+                    "group": "qualc-blog-cn"
+                },
+                {
+                    "when": "resourceLangId == html",
+                    "command": "extension.qualc.blog.removeFileName",
+                    "group": "qualc-blog-cn"
+                }
+            ],
+            "editor/title/context": [
+                {
+                    "when": "resourceLangId == html",
+                    "command": "extension.qualc.blog.addArticle",
+                    "group": "qualc-blog-cn"
+                },
+                {
+                    "when": "resourceLangId == html",
+                    "command": "extension.qualc.blog.addArticleType",
+                    "group": "qualc-blog-cn"
+                },
+                {
+                    "when": "resourceLangId == html",
+                    "command": "extension.qualc.blog.addArticleSeries",
+                    "group": "qualc-blog-cn"
+                },
+                {
+                    "when": "resourceLangId == html",
+                    "command": "extension.qualc.blog.removeFileName",
+                    "group": "qualc-blog-cn"
+                }
+            ]
+        },
+        "configuration": {
+            "title": "qualc-blog-cn",
+            "properties": {
+                "qualcBlog.articleApiUrl": {
+                    "type": "string",
+                    "default": "",
+                    "description": "接口名"
+                },
+                "qualcBlog.articleTypeApiUrl": {
+                    "type": "string",
+                    "default": "",
+                    "description": "类型接口名"
+                },
+                "qualcBlog.articleSeriesApiUrl": {
+                    "type": "string",
+                    "default": "",
+                    "description": "系列接口名"
+                },
+                "qualcBlog.userName": {
+                    "type": "string",
+                    "default": "",
+                    "description": "用户名"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6",
+        "@types/node": "^7.0.43",
+        "@types/mocha": "^2.2.42"
+    }
+}

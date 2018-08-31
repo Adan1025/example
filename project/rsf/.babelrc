@@ -1,0 +1,19 @@
+{
+    "presets": [
+        "react",
+        "env"
+    ],
+    "plugins": [
+        [
+            "transform-runtime",
+            {
+                "helpers": false,
+                "polyfill": false,
+                "regenerator": true
+            }
+        ],
+        "transform-class-properties",
+        "transform-decorators-legacy",
+        "transform-do-expressions"
+    ]
+}

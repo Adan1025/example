@@ -1,0 +1,40 @@
+version: '2'
+networks: 
+    gnode:
+
+services:
+    db:
+        image: 'mysql:5.7.15'
+        networks: 
+            - gnode
+        environment:
+            MYSQL_ROOT_PASSWORD: mysqlroot
+            MYSQL_DATABASE: sf
+            MYSQL_USER: 'data'
+            MYSQL_PASSWORD: 'Paic1234'
+        volumes:
+            - $PWD/data:/var/lib/mysql
+        ports:
+            - "3306:3306"
+
+    node-app:
+        build: node
+        networks: 
+            - gnode
+        ports:
+            - "3000:3000"
+        depends_on:
+            - db
+        volumes:
+            - $PWD/node:/home/data
+
+    nginx:
+        build: nginx
+        networks: 
+            - gnode
+        depends_on:
+            - node-app
+        ports:
+            - '80:80'
+        volumes:
+            - $PWD/nginx:/etc/nginx

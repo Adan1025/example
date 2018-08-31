@@ -1,0 +1,40 @@
+@import "../variables.scss";
+@import "../mixin.scss";
+.#{$prefix} {
+    &-articleinfo {
+        position: relative;
+        // padding: 20px 40px 5px;
+        padding-top: 20px;
+        padding-right: 40px;
+        padding-bottom: 5px;
+        padding-left: 40px;
+        &-title {
+            width: 80%;
+            font-size: 24px;
+            word-break: break-word;
+            font-weight: 400;
+            // @include text-clamp(1);
+        }
+        &-content {
+            padding: 10px 15px;
+            margin-top: 5px;
+            @include box-sizing;
+        }
+        &-meta {
+            margin-top: 10px;
+            font-size: 12px;
+            font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+            color: $ft-f3-color;
+            span {
+                &:after {
+                    content: '|';
+                    display: inline-block;
+                    margin: 0 5px;
+                }
+                &:last-child:after {
+                    content: '';
+                }
+            }
+        }
+    }
+}

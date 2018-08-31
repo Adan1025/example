@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #box{
+            width: 100%;
+            height: 300px;
+            overflow-y: auto;
+            background-color: #ebebeb;
+        }
+        .item{
+            width: 100%;
+            height: 800px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div class="item">1</div>
+    </div>
+    <script type="text/javascript">
+    let i = 1;
+    let box = document.querySelector('#box');
+    box.onscroll=function(){
+        if(box.scrollHeight - box.scrollTop - box.clientHeight<30){
+            load();
+        }
+    }
+    function load(){
+        let newElem = document.createElement('div');
+        newElem.className = 'item';
+        newElem.innerHTML = (++i);
+        box.appendChild(newElem);
+    }
+
+    </script>
+</body>
+</html>

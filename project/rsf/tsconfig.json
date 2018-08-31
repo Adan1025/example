@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "lib": ["dom", "es2015.promise", "es5"],
+        "sourceMap": true,
+        "noImplicitAny": false, //在表达式和声明上有隐含的any类型时报错
+        "experimentalDecorators": true, //启用实验性的ES装饰器
+        "module": "commonjs",
+        "target": "es5",
+        "allowJs": false, //还包含.js和.jsx后缀
+        "jsx": "react",
+        "rootDir": "src",
+        "outDir": "dist",
+        "baseUrl": "./src", //模块名到基于baseUrl的路径映射的列表
+        "typeRoots": [
+            "./node_modules/@types"
+        ],
+        "paths":{
+            "@/*": ["./js/common/*"],
+            "Style/*": ["./src/scss/*"],
+            "Img/*": ["./src/images/*"]
+        }
+    },
+    "exclude": [
+        "node_modules"
+    ],
+    "include": [
+        "src/**/*"
+    ]
+}

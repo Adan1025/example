@@ -1,0 +1,42 @@
+@import "../variables.scss";
+@import "../mixin.scss";
+.#{$prefix}{
+    &-author{
+        padding: 10px;
+        img{
+            display: block;
+            margin: 5px auto 5px;
+            width: 120px;
+            height: 120px;
+            @include border;
+        }
+        &-name,
+        &-description{
+            display: block;
+            @include height(25px);
+            text-align: center;
+        }
+        &-name{
+            font-size: 16px;
+            font-weight: bold;
+            color: $ft-f5-color;
+        }
+        &-description{
+            color: $ft-f3-color;
+        }
+    }
+    // &-link{
+    //     display: flex;
+    //     height: 3rem;
+    //     text-align: center;
+    //     &-item{
+    //         flex: 1;
+    //         padding-top: .2rem;
+    //         padding-bottom: .2rem;
+    //         > span{
+    //             height: 1.5rem;
+    //             display: block;
+    //         }
+    //     }
+    // }
+}

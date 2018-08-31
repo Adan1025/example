@@ -1,0 +1,12 @@
+{
+    "plugins": [
+        [
+            "test",
+            {
+                "cursdir": {
+                    "@com": "/d/a"
+                }
+            }
+        ]
+    ]
+}
