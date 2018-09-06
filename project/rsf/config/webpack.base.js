@@ -83,7 +83,7 @@ module.exports = {
         alias: {
             Style: path.resolve(__dirname, '../src/scss'),
             Img: path.resolve(__dirname, '../src/images'),
-            "@": path.resolve(__dirname, '../src/js/common'),
+            "@": path.resolve(__dirname, '../src/js/common')
         }
     },
     // externals: {

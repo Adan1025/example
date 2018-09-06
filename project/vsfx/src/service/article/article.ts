@@ -46,7 +46,7 @@ export class ArticleService extends BaseService implements ArticleInterface {
                 .select('count(article.id)', 'total'),
             params = <findAllArticleD>{};
         query = query.where('1=1');
-        if (type) {
+        if (type && type != 0) {
             query = query.andWhere('article.type=:type', { type });
             countQuery = countQuery.andWhere('article.type=:type', { type });
             // params.type = type;

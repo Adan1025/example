@@ -1,6 +1,7 @@
 @import './index.scss';
 $meta-color: #999;
-
+$pre-bg: #282c34;
+$pre-color: #c1c1c1;
 html body h1, html body h2, html body h3, html body h4, html body h5, html body h6 {
     line-height: 1.2;
     margin-top: 1em;
@@ -11,14 +12,29 @@ html body h1, html body h2, html body h3, html body h4, html body h5, html body 
 .#{$prefix} {
     &-articleinfo{
         position: relative;
-        width: 100%;
+        // width: 100%;
+        overflow: hidden;
         padding-top: 1rem;
         padding-right: 2rem;
         padding-bottom: .25rem;
         padding-left: 2rem;
         background-color: #fff;
         @include box-sizing;
-
+        pre{
+            // background-color:$pre-bg;
+            // color: $pre-color;
+            // overflow: hidden;
+            // overflow-x: scroll;
+            // display: block;
+            // font-size: 14px;
+            // line-height: 22px;
+            // overflow-x: auto;
+            // white-space: pre;
+            // word-wrap: normal;
+            // border-radius: 4px;
+            // padding: 8px;
+            // font-family: Consolas,Inconsolata,Courier,monospace,"PingFang SC","Microsoft YaHei",sans-serif;
+        }
         &-title{
             height: 2.5rem;;
             font-size: 2rem;
