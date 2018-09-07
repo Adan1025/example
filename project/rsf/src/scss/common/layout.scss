@@ -16,7 +16,7 @@ body {
     position: relative;
     margin: 0 auto;
     min-width: 320px;
-    background-color: $bg-body-color;
+    background-color: $bg-body-color!important;
     color: $ft-default-color;
     font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
     line-height: 2;

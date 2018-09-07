@@ -39,7 +39,7 @@ export class ArticleInfoComponent extends Component {
         );
     }
     async findArticleInfoData() {
-        // return {};
+        return {};
         return Get(`/restapi/article/info/${this.props.match.params.id}`).then((results) => results);
     }
 }
