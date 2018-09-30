@@ -18,13 +18,13 @@ app.use(express.static(path.join(__dirname, './dist/')));
 // app.use(express.static(path.join(__dirname, 'src')));
 
 // 没有挂载路径的中间件，应用的每个请求都会执行该中间件
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     console.log('Time:', Date.now());
     next();
 });
 
 // 错误处理中间件
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     console.error('app.use error:  ' + err.message);
     res.status(500).send('Something broke!');
 });
@@ -33,7 +33,7 @@ app.use(function(err, req, res, next) {
 // app.use(indexRouter);
 // app.use('/users', usersRouter);
 
-const server = http.createServer(app).listen(7778, function() {
+const server = http.createServer(app).listen(7778, function () {
     const { address, port } = server.address();
     console.log('Example app listening at http://%s:%s', address, port);
 });
