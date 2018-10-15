@@ -14,20 +14,30 @@ shell.mkdir('-p', './dist/js/common')
 shell.cp('-R', './static/js/common/flexible_v2.js', './dist/js/common');
 
 module.exports = {
-    // devServer:{
-    //     publicPath: 'http://localhost:3000/', // 设置引用路径 如ttf等文件
-    //     contentBase: path.join(__dirname, "static"),
-    //     //内联模式
-    //     inline:true,
-    //     port: 3000,
-    //     historyApiFallback: true//不跳转
-    // },
+    devServer: {
+        port: '7777',
+        publicPath: '/', //'http://localhost:7777',
+        contentBase: false, // since we use CopyWebpackPlugin.
+        compress: true,
+        open: true,
+        proxy: {
+            '/restapi/': {
+                changeOrigin: true,
+                secure: false,
+                target: 'http://127.0.0.1:7779/',
+                // target: 'http://blog.qualc.cn/', // 将 URL 中带有 /api 的请求代理到本地的 3000 端口的服务上
+                // pathRewrite: { '^/api': '' }, // 把 URL 中 path 部分的 `api` 移除掉
+            },
+        },
+        hot: true// 开启热更新
+    },
+    target: 'web',
     watch: true,
     context: path.resolve(__dirname + '/static/'),
     entry: {
         index: './js/index.js',
         vue: ['vue', 'vue-router', 'vuex', 'axios'],
-        common: ['@common/DOM.js','@common/CommFunc.js'],
+        common: ['@common/DOM.js', '@common/CommFunc.js'],
         elementui: 'element-ui'
     },
     output: {
@@ -65,7 +75,7 @@ module.exports = {
             filename: '[name].js'
         }),
         new webpack.DefinePlugin({
-         //    // 开发环境是不是生产
+            //    // 开发环境是不是生产
             PRODUCTION: JSON.stringify(false),
         }),
         // new webpack.DefinePlugin({
@@ -88,8 +98,8 @@ module.exports = {
         extensions: ['.js', '.vue', '.css'],
         alias: {
             'vue$': 'vue/dist/vue.common.js',
-            '@views':  path.resolve(__dirname,'./static/js/views/'),
-            '@common':  path.resolve(__dirname,'./static/js/common/')
+            '@views': path.resolve(__dirname, './static/js/views/'),
+            '@common': path.resolve(__dirname, './static/js/common/')
             // 'vue$': 'vue/dist/vue.js'
             // 'vue$': 'vue/dist/vue.esm.js'
         }
@@ -113,11 +123,11 @@ module.exports = {
                         helpers: false,
                         polyfill: false,
                         regenerator: true,
-                    }],[
-                    "component", {
-                        "libraryName": "elementui",
-                        "styleLibraryName": "theme-chalk"
-                      }
+                    }], [
+                        "component", {
+                            "libraryName": "elementui",
+                            "styleLibraryName": "theme-chalk"
+                        }
                     ]
                     /*[// 如果你的项目中用到了UI组件库，只加载用到的组件
                                "import", {  //babel-plugin-import

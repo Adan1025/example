@@ -57,6 +57,8 @@ export const DefineRoute = (controllersPath: string | string[]) => {
                             router[method](path, function (req: any, res: any, next: any) {
                                 if (!_noInterceptors && req.originalUrl.indexOf('/manage/') === 0) {
                                     if (req.url.indexOf('/users/login') === -1 && (!req.session || !req.session.users || !req.session.users.id)) {
+                                        console.log(req.url);
+                                        console.log(req.session)
                                         res.send({
                                             status: 998,
                                             errmsg: '登陆态超时'

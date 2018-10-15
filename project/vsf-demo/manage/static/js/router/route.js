@@ -2,7 +2,7 @@
 let UsertRouter = [{
     path: '/users',
     name: 'usersList',
-    component:  resolve => require(['@views/users/users.list.vue'], resolve),
+    component: resolve => require(['@views/users/users.list.vue'], resolve),
 }, {
     path: '/users/usersList',
     name: 'usersList',
@@ -11,7 +11,7 @@ let UsertRouter = [{
     path: '/users/usersSave/:id?',
     name: 'usersSave',
     component: resolve => require(['@views/users/users.add.vue'], resolve)
-},{
+}, {
     path: '/users/usersUpdate',
     name: 'usersUpdate',
     component: resolve => require(['@views/users/users.info.vue'], resolve)
@@ -30,11 +30,11 @@ let PowerRouter = [{
     path: '/power',
     name: 'power',
     component: resolve => require(['@views/power/menu.list.vue'], resolve)
-},{
+}, {
     path: '/power/menu',
     name: 'menu',
     component: resolve => require(['@views/power/menu.list.vue'], resolve)
-},{
+}, {
     path: '/power/interface',
     name: 'interface',
     component: resolve => require(['@views/power/interface.list.vue'], resolve)
@@ -55,20 +55,30 @@ let ArticleRouter = [{
     component: resolve => require(['@views/article/article.publish.vue'], resolve)
 }];
 
-export
-default [{
-    path: '/',
-    component: resolve => require(['@views/index.vue'], resolve)
+// 图片
+let pictureRouter = [{
+    path: '/picture',
+    name: 'pictureList',
+    component: resolve => require(['@views/picture/picture.list.vue'], resolve)
 }, {
-    path: '/login',
-    name: 'login',
-    component: resolve => require(['@views/login.vue'], resolve)
-}, {
-    path: '/index',
-    component: resolve => require(['@views/index.vue'], resolve),
-    children: [{
-        path: '/',
-        name: 'home',
-        component: resolve => require(['@views/home.vue'], resolve)
-    }].concat(UsertRouter, ArticleRouter,PowerRouter)
+    path: '/picture/pictureList',
+    name: 'pictureList',
+    component: resolve => require(['@views/picture/picture.list.vue'], resolve)
 }]
+export
+    default [{
+        path: '/',
+        component: resolve => require(['@views/index.vue'], resolve)
+    }, {
+        path: '/login',
+        name: 'login',
+        component: resolve => require(['@views/login.vue'], resolve)
+    }, {
+        path: '/index',
+        component: resolve => require(['@views/index.vue'], resolve),
+        children: [{
+            path: '/',
+            name: 'home',
+            component: resolve => require(['@views/home.vue'], resolve)
+        }].concat(UsertRouter, ArticleRouter, PowerRouter)
+    }]

@@ -39,7 +39,6 @@ export class UsersController {
             }
             try {
                 let [menuList = [], interfaceList] = await Promise.all([usersMenuService.getMenuListByRoleId(users.usersRoleId), usersInterfaceService.getInterfaceListByRoleId(users.usersRoleId)]);
-
                 req.session.users = users;
                 req.session.menuList = menuList;
                 req.session.interfaceList = interfaceList;

@@ -24,7 +24,12 @@ export class BaseService implements BaseServiceInterface {
         // save() 会先发起请求验证，来判断是添加或者修改
         // let exe = await this.getRepository(Model).save(article);
         if (article.id) {
-            await this.getRepository(Model).update(article.id, article);
+            let id = article.id;
+            delete article.id;
+            console.log('~~~1')
+            console.log(id)
+            console.log(article)
+            await this.getRepository(Model).updateById(id, article);
         } else {
             await this.getRepository(Model).insert(article);
         }

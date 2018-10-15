@@ -6,7 +6,7 @@ export class HotComponent extends Component {
     state = {
         articleList: []
     }
-    componentDidMount() {
+    async componentDidMount() {
         let articleList = [];
 
         // let _t = 'Python2爬虫学习系列教程';
@@ -19,7 +19,7 @@ export class HotComponent extends Component {
         // });
 
         this.setState({
-            articleList
+            articleList: await this.findHotArticle()
         })
     }
     render() {
@@ -28,7 +28,7 @@ export class HotComponent extends Component {
 
         if (!articleList || articleList.length == 0) {
             return null
-        } 
+        }
         listStr = articleList.map(item => {
             return (
                 <li className="c-hot-item" key={item.id}>
@@ -49,5 +49,8 @@ export class HotComponent extends Component {
                 </div>
             </div>
         );
+    }
+    async findHotArticle() {
+        return Get(`/restapi/article/info/${this.props.match.params.id}`).then((results) => results);
     }
 }

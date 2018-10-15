@@ -2,10 +2,10 @@ import { createQuery } from './createQuery';
 import * as mysql from 'mysql';
 // MySQL数据库联接配置
 const config = [{
-    host: '127.0.0.1',
-    user: 'root',
-    password: '',
-    database: 'sf', // 前面建的user表位于这个数据库中
+    host: '115.159.157.177',
+    user: 'data',
+    password: 'Paic1234',
+    database: 'sf_test', // 前面建的user表位于这个数据库中
     port: 3306,
     acquireTimeout: '60 * 6 * 24'
 }];

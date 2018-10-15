@@ -1,15 +1,22 @@
 {
-  "presets": ["es2015"],
+  "presets": [
+    "es2015"
+  ],
   "plugins": [
-        ['transform-runtime', {
-          helpers: false,
-          polyfill: false,
-          regenerator: true, }
-        ],[
-        "component", {
-            "libraryName": "elementui",
-            "styleLibraryName": "theme-chalk"
-          }
-        ]
+    [
+      "transform-runtime",
+      {
+        "helpers": false,
+        "polyfill": false,
+        "regenerator": true
+      }
+    ],
+    [
+      "component",
+      {
+        "libraryName": "elementui",
+        "styleLibraryName": "theme-chalk"
+      }
     ]
+  ]
 }

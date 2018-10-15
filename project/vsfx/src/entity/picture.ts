@@ -7,4 +7,8 @@ export class Picture {
     imgUrl: string;
     @Column('varchar', { length: 30 })
     alt: string;
+    @Column('varchar', { length: 25 })
+    name: string;
+    @Column('int', { length: 1, comment: '是否常用', default: 0 })
+    used?: number
 }

@@ -29,7 +29,7 @@ export class ArticleComponent extends Component {
             listStr = [];
 
         if (!articleList || articleList.length == 0 || currPage == 0) {
-            return <CircleComponent />;
+            // return <CircleComponent />;
         }
         console.log(articleList)
         listStr = articleList.map(item => {

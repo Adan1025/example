@@ -23,6 +23,7 @@ import { DefineRoute } from '../@common';
 app.use(Middleware.typeorm());
 app.use(express.json({ limit: '5mb' }))
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
     // store: new RedisStore({
     //     // client: redis,
@@ -38,6 +39,10 @@ app.use(session({
 }));
 app.use(function (req: any, res: any, next: any) {
     console.log('Time:', Date.now());
+    // res.header("Access-Control-Allow-Origin", "*");
+    // res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    // res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    // res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
 });
 

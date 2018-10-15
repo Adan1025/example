@@ -6,7 +6,7 @@ import { optionsObj, resultObj } from './upload.d';
 
 // 先模拟 后面再分配目录
 const uploadConfig = {
-    uploadDir: path.resolve(__dirname, '/data/web_tbwork_static'),
+    uploadDir: path.resolve(__dirname, './data/web_tbwork_static'),
     filePath: 'http://static.qualc.cn/'
 }
 
@@ -93,7 +93,8 @@ export async function doFormidable(req, options: optionsObj | string) {
         return {
             fileUrl: `${uploadConfig.filePath + options.type}/${filePath.base}`,
             fileBase: filePath.base,
-            fileName: file.name
+            fileName: file.name,
+            used: result.fields.used
         }
     } catch (e) {
         throw new Error('ErrCode: 3,' + e.message);

@@ -11,8 +11,8 @@ axiosIns.defaults.headers.post['Content-Type'] = 'application/jsoned';
 
 console.log(process.argv['NODE_ENV']);
 
-// if(process.argv['NODE_ENV'] =='develop'){
-//     axiosIns.defaults.baseURL = 'http://blog.qualc.cn/';
+// if (process.argv['NODE_ENV'] == 'develop') {
+// axiosIns.defaults.baseURL = 'http://blog.qualc.cn/';
 // }
 // 子类的拦截器，对结果是否正常做出判断
 axiosIns.interceptors.response.use(res => {
