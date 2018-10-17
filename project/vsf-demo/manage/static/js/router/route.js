@@ -1,7 +1,7 @@
 // 用户管理
 let UsertRouter = [{
     path: '/users',
-    name: 'usersList',
+    name: 'users',
     component: resolve => require(['@views/users/users.list.vue'], resolve),
 }, {
     path: '/users/usersList',
@@ -43,7 +43,7 @@ let PowerRouter = [{
 // 资讯
 let ArticleRouter = [{
     path: '/article',
-    name: 'articleList',
+    name: 'article',
     component: resolve => require(['@views/article/article.list.vue'], resolve),
 }, {
     path: '/article/articleList',
@@ -58,7 +58,7 @@ let ArticleRouter = [{
 // 图片
 let pictureRouter = [{
     path: '/picture',
-    name: 'pictureList',
+    name: 'picture',
     component: resolve => require(['@views/picture/picture.list.vue'], resolve)
 }, {
     path: '/picture/pictureList',
@@ -80,5 +80,5 @@ export
             path: '/',
             name: 'home',
             component: resolve => require(['@views/home.vue'], resolve)
-        }].concat(UsertRouter, ArticleRouter, PowerRouter)
+        }].concat(UsertRouter, ArticleRouter, PowerRouter, pictureRouter)
     }]

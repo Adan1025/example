@@ -110,6 +110,11 @@ ajaxMethod.forEach((method) => {
                 spinner: 'el-icon-loading',
                 background: 'rgba(0, 0, 0, 0.7)'
             });
+            if (method == 'get') {
+                data = {
+                    params: data
+                }
+            }
             axiosIns[method](uri, data, config).then((json) => {
                 resolve(json);
                 loading.close();
