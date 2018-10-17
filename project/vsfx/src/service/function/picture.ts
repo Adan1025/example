@@ -1,16 +1,10 @@
 import { Service } from '../../@common';
 import { BaseService } from '../BaseService';
 import { Picture } from '../../entity/picture';
-type AllParam = {
-    name: Array<string> | string
-    noPage: boolean
-    vague: boolean
-    pageSize: number
-    currPage: number
-    used: string | number
-}
+import { PictureInterface, AllParam } from './picture.d';
+
 @Service()
-export class PictureService extends BaseService {
+export class PictureService extends BaseService implements PictureInterface {
     getRepository;
     async getAll({ name = '', noPage = false, vague = false, pageSize = 20, currPage = 1, used = 'all' }: AllParam) {
         // let picture: Array<Picture> = this.getRepository(Picture).find();
