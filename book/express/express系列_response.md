@@ -14,7 +14,7 @@ res.type(type) 设置Content-type
 
 ### 1.1、入参  
 
-```bash {.line-numbers}
+```js {.line-numbers}
 res.send(any);
 res.send(!number, number);
 res.send(number, any);
@@ -24,7 +24,7 @@ res.send(number, any);
 
 当参数有2个的时候
 
-```bash {.line-numbers}
+```js {.line-numbers}
 res.send = function send(body) {
     var chunk = body;
     // ...
@@ -45,7 +45,7 @@ res.send = function send(body) {
 
 当arguments[0]类型不是number 并且arguments[1]类型是number的时候，第二个参数为statusCode，否则arguments[0]为number时，arguments[0]是设置statusCode，arguments[1]是设置body，如：
 
-```bash {.line-numbers}
+```js {.line-numbers}
 res.send('success', 200); // body: success,  statusCode: 200
 res.send(200, 'success'); // body: success,  statusCode: 200
 res.send(200, 13412341234); // body: 13412341234,  statusCode: 200
@@ -59,7 +59,7 @@ res.send('abc', 'efg'); // Invalid status code： 0
 
 因为statusCode不在100-999范围内，则抛出异常Invalid status code，定义如下：
 
-```bash {.line-numbers}
+```js {.line-numbers}
 // _http_server.js
 statusCode |= 0;
 ServerResponse.prototype.writeHead = function(statusCode, reason, obj) {
@@ -72,7 +72,7 @@ ServerResponse.prototype.writeHead = function(statusCode, reason, obj) {
 
 当statusCode 为字符串时,`statusCode |= 0`值为0。(|= 按位或),更多类型如下:
 
-```bash {.line-numbers}
+```js {.line-numbers}
 var a = undefined;
 a | 0; // 0
 var a = null;
@@ -93,7 +93,7 @@ a | 0;  // 404
 
 只有一个number参数的时候
 
-```bash {.line-numbers}
+```js {.line-numbers}
 if (typeof chunk === 'number' && arguments.length === 1) {
     // res.send(status) will set status message as text string
     if (!this.get('Content-Type')) {
@@ -110,7 +110,7 @@ if (typeof chunk === 'number' && arguments.length === 1) {
 
 设置content-type，源码如下：
 
-```bash {.line-numbers}
+```js {.line-numbers}
 switch (typeof chunk) {
     // string defaulting to html
     case 'string':
@@ -147,7 +147,7 @@ if (typeof chunk === 'string') {
 如果参数类型是`boolean`、`number`、`object`，并且不为空和buffer类型，则会调用res.json(),在json()将chunk转换为字符串，再回调res.send()。执行`case 'string':`
 如果chunk是字符串 给content-type加上编码
 
-```bash {.line-numbers}
+```js {.line-numbers}
 res.send({obj: 1}) === res.json({obj: 1}) // content-type: application/json
 res.send('{obj:1}'); // text/html; charset=utf-8
 ```
@@ -156,7 +156,7 @@ res.send('{obj:1}'); // text/html; charset=utf-8
 最后调用`req.end()`结束整个请求。  
 end() 继承自http模块
 
-```bash {.line-numbers}
+```js {.line-numbers}
 // _http_outgoing.js
 OutgoingMessage.prototype.end = function(data, encoding, callback) {
     // ...
@@ -167,7 +167,7 @@ OutgoingMessage.prototype.end = function(data, encoding, callback) {
 
 官方貌似并不推荐res.send(body, code)写法
 
-```bash {.line-numbers}
+```js {.line-numbers}
 res.send(200, {status:1});
 // Console -> express deprecated res.send(status, obj): Use res.status(status).send(obj) instead at xxx.js
 
@@ -187,7 +187,7 @@ res.json()、res.jsonp() 同理
 
 ### 2.1、入参  
 
-```bash {.line-numbers}
+```js {.line-numbers}
 res.JSON(any);
 res.send(!number, number);
 res.send(number, any);
@@ -197,7 +197,7 @@ res.send(number, any);
 
 和req.send() 一样，当参数有2个并且arguments[1]类型是number时，第二个为statusCode， 否则arguments[1]为 body， 如果statusCode是字符串！！！后果如req.sned()
 
-```bash {.line-numbers}
+```js {.line-numbers}
 var val = obj;
 if (arguments.length === 2) {
     if (typeof arguments[1] === 'number') {
@@ -211,7 +211,7 @@ if (arguments.length === 2) {
 
 之后就将body字符串话，设置默认content-type，调用req.send();
 
-```bash {.line-numbers}
+```js {.line-numbers}
 var app = this.app;
 var escape = app.get('json escape')
 var replacer = app.get('json replacer');
@@ -239,7 +239,7 @@ jsonp()会先根据content-type的情况来判断是否设置header头，
 > [X-Content-Type-Options介绍](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/X-Content-Type-Options)
 最后、依然是调用req.send()
 
-```bash {.line-numbers}
+```js {.line-numbers}
 // 参数判断...
 
 // JSONP回调名称,默认callback
@@ -270,7 +270,7 @@ return this.send(body);
 
 自定义JSONP回调名称
 
-```bash {.line-numbers}
+```js {.line-numbers}
 const app = require('express')()
 app.set('jsonp callback name', 'cbname')
 res.jsonp({status:1})
@@ -282,7 +282,7 @@ res.jsonp({status:1})
 
 ### 4.1、源码分析
 
-```bash {.line-numbers}
+```js {.line-numbers}
 res.status = function status(code) {
     // 设置此次请求返回的状态码，正常入参为100 - 999 之间的数字，非正常入参(如字符串)则会抛出异常`RangeError: Invalid status code:`，具体见res.send()  
     this.statusCode = code;
@@ -301,7 +301,7 @@ res.status = function status(code) {
 
 ### 5.2、源码分析
 
-```bash {.line-numbers}
+```js {.line-numbers}
 res.sendStatus = function sendStatus(statusCode) {
     // 获取到code对应的字符串表示形式，获取不到则为undefined,入参规则同res.status()
     var body = statuses[statusCode] || String(statusCode)
@@ -321,7 +321,7 @@ res.sendStatus = function sendStatus(statusCode) {
 
 ### 6.1、入参
 
-```bash {.line-numbers}
+```js {.line-numbers}
 let opt = {
     root: '/homo/usersd'
 }
@@ -357,7 +357,7 @@ res.sendFile('express.txt', opt, function(err){
 
 响应传输完成或发生错误,定了回调函数并且发生错误,则必须通过结束请求 - 响应循环或将控制权交给下一个路由
 
-```bash {.line-numbers}
+```js {.line-numbers}
 // options 在Response Headers的表现形式
 // 默认Response Headers > (只显示相关的)
 {
@@ -383,7 +383,7 @@ res.sendFile('express.txt', opt, function(err){
 
 ### 6.2、源码分析
 
-```bash {.line-numbers}
+```js {.line-numbers}
 res.sendFile = function sendFile(path, options, callback) {
     var done = callback;
     // ...
@@ -448,7 +448,7 @@ Tue, 29 May 2018 03:17:46 GMT express deprecated res.sendfile: Use res.sendFile 
 
 ### 8.2、源码解析
 
-```bash {.line-numbers}
+```js {.line-numbers}
 res.download = function download(path, filename, options, callback) {
     var done = callback;
     var name = filename;
@@ -493,7 +493,7 @@ res.download = function download(path, filename, options, callback) {
   type入参存在`/` 时 会根据简称获取到对应的类型全名,(具体类型见[types](https://github.com/broofa/node-mime/tree/master/types)),
   匹配不到默认值为`application/octet-stream`。如果带`/`则入参是啥就设置啥。
 
-```bash {.line-numbers}
+```js {.line-numbers}
 res.contentType('txt');
 // res.get('Content-Type') -> text/plain; charset=utf-8
 
@@ -514,7 +514,7 @@ res.contentType('aaa/bbb');
 
 参数带'/'不处理直接set(),带'/'则通过mime.lookup(type)获取到对应的全称，更多规则见[mime](https://github.com/broofa/node-mime/blob/master/README.md)
 
-```bash {.line-numbers}
+```js {.line-numbers}
 res.contentType = res.type = function contentType(type) {
     // 判断是否需要mime.lookup
     var ct = type.indexOf('/') === -1 ?
@@ -745,14 +745,14 @@ vary介绍，我百度了一下大概介绍。
 
 参数为一个字符串或者一个数组
 
-```bash {.line-numbers}
+```js {.line-numbers}
 res.vary('Accept')
 res.vary(['Accept', 'User-Agent'] )
 ```
 
 ### 14.2、源码分析
 
-```bash {.line-numbers}
+```js {.line-numbers}
 // response.js
 res.vary = function(field) {
     // 判断入参
@@ -769,7 +769,7 @@ res.vary = function(field) {
 
 入参追到vary header的操作在node_modules/vary模块
 
-```bash {.line-numbers}
+```js {.line-numbers}
 vary/index.js
 function vary(res, field) {
     if (!res || !res.getHeader || !res.setHeader) {

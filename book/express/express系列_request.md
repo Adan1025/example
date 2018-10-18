@@ -8,7 +8,7 @@ req.get(name) 获取header
 
 ### 一、req.header(name)
 
-```bash {.line-numbers}
+```js {.line-numbers}
 req.get = req.header = function header(name) {
         // code...
         var lc = name.toLowerCase();
@@ -31,7 +31,7 @@ req.get = req.header = function header(name) {
 
 #### 2.1 入参
 
-```bash {.line-numbers}
+```js {.line-numbers}
 req.accepts(['html', 'json']);
 req.accepts('html', 'json');
 req.accepts('html, json');
@@ -41,7 +41,7 @@ req.accepts('html');
 
 #### 2.2 源码分析
 
-```bash {.line-numbers}
+```js {.line-numbers}
 req.accepts = function() {
     // accepts接收request对象并生成新的accept对象
     var accept = accepts(this);
@@ -51,7 +51,7 @@ req.accepts = function() {
 
 #### 2.3 例子
 
-```bash {.line-numbers}
+```js {.line-numbers}
 app.get('/', function (req, res, next) {
     switch (req.accepts(['json', 'html'])) {
         case 'json':
@@ -91,12 +91,12 @@ req.acceptsLanguages(lang [,...arg])
 
 ### 3.1 入参
 
-```bash {.line-numbers}
+```js {.line-numbers}
 req.param(name);
 req.param(name, defaultValue);
 ```
 
-```bash {.line-numbers}
+```js {.line-numbers}
 // request url: http://127.0.0.1/;
 req.param('age');
 // Console => undefined
@@ -112,7 +112,7 @@ req.param('age', '0');
 
 #### 3.2 源码分析
 
-```bash {.line-numbers}
+```js {.line-numbers}
 req.param = function param(name, defaultValue) {
     // 获取三个入参
     var params = this.params || {};
@@ -136,7 +136,7 @@ req.param = function param(name, defaultValue) {
 
 #### 5.1 入参
 
-```bash {.line-numbers}
+```js {.line-numbers}
 // 返回第一个匹配的types
 req.param(type1 [, type2 [,...]]);
 req.param([type1, type2 [,...]]);

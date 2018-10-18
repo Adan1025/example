@@ -3,14 +3,14 @@
 
 ## docker command
 
-```bash {.line-numbers}
+```js {.line-numbers}
 docker xxx --help
 docker run --help
 ```
 
 ### 1. docker pull
 
-```bash {.line-numbers}
+```js {.line-numbers}
 #!/bin/bash
 docker pull node[:Version[default latest]]
 
@@ -20,7 +20,7 @@ docker pull -a node
 
 ### 2. docker build
 
-```bash {.line-numbers}
+```js {.line-numbers}
 docker build -t docke_file .
 ```
 
@@ -30,7 +30,7 @@ docker build -t docke_file .
 
 ### 3. docker run
 
-```bash {.line-numbers}
+```js {.line-numbers}
 docker run -p 8080:80 -d nginx
 ```
 
@@ -42,7 +42,7 @@ docker run -p 8080:80 -d nginx
 
 ### 4. docker ps
 
-```bash {.line-numbers}
+```js {.line-numbers}
 docker ps
 
 # Don‘t truncate output IDs
@@ -102,7 +102,7 @@ docker ps --format "{{.ID}}:{{.Command}} -: {{.Image}}"
 
 ### 5. docker images
 
-```bash {.line-numbers}
+```js {.line-numbers}
 docker images -a -q --no-trunc --digests --format'{{.ID}}' -f before=containerId
 # --digests 显示摘要
 
@@ -110,7 +110,7 @@ docker images -a -q --no-trunc --digests --format'{{.ID}}' -f before=containerId
 
 ### 6. docker stop/start/kill/restart
 
-```bash {.line-numbers}
+```js {.line-numbers}
 docker start containerName[ containerId [...] ]
 docker stop containerName[ containerId [...] ]
 docker kill containerName[ containerId [...] ]
@@ -119,13 +119,13 @@ docker restart containerName[ containerId [...] ]
 
 ### 7. docker cp
 
-```bash {.line-numbers}
+```js {.line-numbers}
 docker cp file containerId://usr/share/nginx/html
 ```
 
 ### 8. docker commit
 
-```bash {.line-numbers}
+```js {.line-numbers}
 docker cp index.html containerId://usr/share/nginx/html
 docker commit -m 'message' containerId imagesName
 ```
@@ -139,7 +139,7 @@ docker commit -m 'message' containerId imagesName
 
 ### 9. remove container/images
 
-```bash {.line-numbers}
+```js {.line-numbers}
 # stop container
 docker stop container_id
 
@@ -161,7 +161,7 @@ docker rmi -f $(docker images -q )
 
 ### 10. docker logs
 
-```bash {.line-numbers}
+```js {.line-numbers}
 docker logs -t -f CONTAINER
 ```
 
@@ -174,13 +174,13 @@ docker logs -t -f CONTAINER
 
 获取容器、镜像的元数据
 
-```bash {.line-numbers}
+```js {.line-numbers}
 docker inspect CONTAINER|IMAGES
 ```
 
 ## Dockerfile
 
-```bash {.line-numbers}
+```js {.line-numbers}
 # Dockerfile
 From ubuntu
 MAINTAINER quancongjin550@pingan.com.cn
@@ -207,7 +207,7 @@ EXPOSE 80
 
 构件容器时就运行的命令以及提交运行结果,比如安装环境依赖
 
-```bash {.line-numbers} RUN
+```js {.line-numbers} RUN
 apt-get update
 ```
 
@@ -216,7 +216,7 @@ apt-get update
 容器启动时执行的命令,docker run命令如果指定了参数会把CMD里的参数覆盖<
 CMD在容器运行的时候提供一些命令及参数，用法如下：
 
-```bash {.line-numbers}
+```js {.line-numbers}
 CMD ["echo", "this is cmd", "command"]
 CMD ["this is cmd", "command"]
 CMD echo "this is cmd command"
@@ -225,7 +225,7 @@ CMD echo "this is cmd command"
 第三种用法(shell form)：是以”/bin/sh -c”的方法执行的命令
 ```
 
-```bash {.line-numbers} CMD
+```js {.line-numbers} CMD
 echo this is cmd command
 #-----
 
@@ -242,13 +242,13 @@ $: docker run qualc/dockerfile3 /bin/echo 'this is cmd command line'
 
 [论docker中 CMD 与 ENTRYPOINT 的区别](https://blog.csdn.net/abc8286946/article/details/41380539)
 
-```bash {.line-numbers}
+```js {.line-numbers}
 写法一：ENTRYPOINT ["echo", "this is cmd", "command"]
 
 写法二：ENTRYPOINT echo "this is cmd command"
 ```
 
-```bash {.line-numbers} ENTRYPOINT
+```js {.line-numbers} ENTRYPOINT
 ["/bin/echo", "this is entrypoint"]
 #-----
 
@@ -273,7 +273,7 @@ $: docker run qualc/dockerfile3 /bin/echo
 
 常用搭配: ENTRYPOINT指定固定命令和参数， CMD指定默认但会改的参数
 
-```bash {.line-numbers}
+```js {.line-numbers}
 ENTRYPOINT ["ls"]
 CMD ["-l"]
 ```
@@ -282,7 +282,7 @@ CMD ["-l"]
 
 暴露端口,对外提供容器端口
 
-```bash {.line-numbers}
+```js {.line-numbers}
 EXPOSE 80 EXPOSE 81 EXPOSE 8080
 ```
 
@@ -291,7 +291,7 @@ EXPOSE 80 EXPOSE 81 EXPOSE 8080
 够将构建命令所在的主机本地的文件或目录、远程URL资源、压缩包(tar,gzip,bzip2,etc)复制到镜像文件系统
 如果url需要认证，则使用`RUN wget`或者`RUN curl`代替
 
-```bash {.line-numbers}
+```js {.line-numbers}
 ADD ["index.html", "/var/www/html"]
 ADD index.html /var/www/html
 ```
@@ -300,7 +300,7 @@ ADD index.html /var/www/html
 
 将构建命令所在的主机本地的文件或目录，复制到镜像文件系统。
 
-```bash {.line-numbers}
+```js {.line-numbers}
 COPY ["index.html", "/var/www/html"]
 COPY index.html /var/www/html
 ```
@@ -311,7 +311,7 @@ COPY index.html /var/www/html
 
 * 挂在宿主机目录
 
-```bash {.line-numbers}
+```js {.line-numbers}
 docker run -d --name nginxVolume -v /usr/share/nginx/html nginx docker inspect nginxVolume
 
 # >...
@@ -326,13 +326,13 @@ screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux
 
 * 挂在本地目录
 
-```bash {.line-numbers}
+```js {.line-numbers}
 docker run -p 80:80 -d -v $PWD/html:/var/www/html qualc/dockerfile3
 ```
 
 * 挂载到其他容器
 
-```bash {.line-numbers}
+```js {.line-numbers}
 docker create -v $PWD/data:/var/mydata --name volumedatademo ubuntu
 docker run -it --volumes-from volumedatademo ubuntu /bin/bash
 #-----
@@ -347,7 +347,7 @@ $: mount
 
 指定运行用户
 
-```bash {.line-numbers}
+```js {.line-numbers}
 RUN useradd -d /home/docker -m docker
 RUN echo 'docker:Paic1234' | chpasswd
 user docker
@@ -357,7 +357,7 @@ user docker
 
 指定工作目录, 可以配置多个WORKDIR
 
-```bash {.line-numbers}
+```js {.line-numbers}
 WORKDIR /home/docker
 CMD pwd
 #-----
@@ -385,7 +385,7 @@ CMD pwd
 
 触发器，创建基础镜像是使用，当一个新的镜像基于这个镜像构建时出发。
 
-```bash {.line-numbers}
+```js {.line-numbers}
 FROM ubuntu
 MAINTAINER base
 images onbuild
@@ -412,7 +412,7 @@ $: docker run qualc/onbuildimagechild
 
 设置环境变量
 
-```bash {.line-numbers}
+```js {.line-numbers}
 ENV type PRD
 ENV projectName website
 ENV projectVersion 1.0
@@ -422,7 +422,7 @@ ENV projectVersion 1.0
 
 ### 1. 常用命令
 
-```bash {.line-numbers}
+```js {.line-numbers}
 # 搜索镜像
 docker search containe
 
@@ -436,7 +436,7 @@ docker push container
 docker tag container newContainer
 ```
 
-```bash {.line-numbers}
+```js {.line-numbers}
 $: docker search whalesay
 #-----
 
@@ -479,7 +479,7 @@ $: docker push qualc/whalesay
 
 * Ubuntu安装为例子
 
-```bash {.line-numbers}
+```js {.line-numbers}
 # 安装docker
 apt-get update
 apt-get
@@ -507,7 +507,7 @@ chmod +x /usr/local/bin/docker-compose
 
 ### 2. 命令
 
-```bash {.line-numbers}
+```js {.line-numbers}
 # 编译
 docker-compose build
 
@@ -531,7 +531,7 @@ docker-compose rm
 
 ### 3. docker-compose.yml
 
-```bash {.line-numbers}
+```js {.line-numbers}
 $: vi docker-compose.yml
 # -----
 version: '2' # 表示使用哪个compose版本的语法
@@ -560,7 +560,7 @@ services:
 
 node
 
-```bash {.line-numbers}
+```js {.line-numbers}
 $: mkdir node nginx data
 $: cd ghost touch Dockerfile config.js
 $: vi Dockerfile
@@ -582,7 +582,7 @@ http.createServer( function(request, response) {
 
 nginx
 
-```bash {.line-numbers}
+```js {.line-numbers}
 $: cd .. && mkdir nginx &&cd nginx &&  touch Dockerfile config.js $: vi Dockerfile
 
 # -----
@@ -610,7 +610,7 @@ http {
 # -----
 ```
 
-```bash {.line-numbers}
+```js {.line-numbers}
 $: docker-compose up -d
 
 # > ghost_db_1 is up-to-date
