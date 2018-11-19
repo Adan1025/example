@@ -7,7 +7,7 @@ const config = [
   {
     type: "mysql",
     host: _config.host,
-    user: _config.username,
+    user: _config.user,
     password: _config.password,
     database: _config.database,
     port: _config.port,
@@ -66,7 +66,7 @@ export const execute = (...arg) => {
  * 字段验证
  * @param {*} item
  */
-const __checkPrototype = function(item) {
+const __checkPrototype = function (item) {
   if (!item) return false;
   // 修饰器的initializer， 所以要执行
   let _item = item();

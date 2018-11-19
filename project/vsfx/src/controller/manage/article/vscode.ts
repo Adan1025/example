@@ -10,13 +10,30 @@ import { Users } from '../../../entity/users';
 import { ArticleTypeService } from '../../../service/article/articleType';
 import { ArticleSeriesService } from '../../../service/article/articleSeries';
 import { ArticleSeries } from 'entity/articleSeries';
-
+import * as fs from 'fs';
 
 const articleService = new ArticleService();
 const usersService = new UsersService();
 const articleTypeService = new ArticleTypeService();
 const articleSeriesService = new ArticleSeriesService();
-let usersInterfaceService = new UsersInterfaceService();
+const usersInterfaceService = new UsersInterfaceService();
+
+const h1Reg = /<h1[^>]*>([^<]+)<\/h1>/;
+const h2SeriesReg = /<h2[^>]*>@Ser:([^<]+)<\/h2>/;
+const pDescriptReg = /<p>@Der:([^<]*)<\/p>/;
+const titleReg = /(.*)\-(.*)$/;
+
+type ARTICLE = {
+    id?: number
+    title: string
+    articleType: string
+    content: string
+    disabled: number
+    docreader: string | null
+    publishDate: string
+    type: number
+    seriesName?: string
+}
 /**
  * 文章controller
  * 
@@ -26,28 +43,44 @@ let usersInterfaceService = new UsersInterfaceService();
 @Controller('/vsarticle')
 @NoInterceptors()
 export class ArticleController {
+    // 保存文章
     @Post('/savea')
-    // @Validation(ArticleCreateDto)
     async saveArticleInfo(req, res, next) {
-        let { body } = req;
+        console.log(req.body)
+        let { body: { content, id } } = req;
         let loginUsers = await this.checkUserInfo(req, res, next);
         if (!loginUsers) {
             return next();
         }
 
-        let article = <Article>{};
 
-        let typeId = await this.checkArticleType(req, res, next);
+        let article = <Article>{};
+        let [htext, title] = content.match(h1Reg) || [null, null];
+        if (!htext || !title) {
+            return res.sendError('标题不存在，格式为 `#标题-类型`');
+        }
+        let titleMatch = title.match(titleReg);
+        article.title = titleMatch && titleMatch[1];
+        let aceType = titleMatch && titleMatch[2];
+        if (!article.title || !aceType) {
+            return res.sendError('标题格式不正确，格式为 `#标题-类型`' + article.title);
+        }
+        let typeId = await this.checkArticleType(res, aceType);
         if (!typeId) {
             return next();
         } else {
             let articleType = <ArticleType>{};
-            articleType.id = typeId;
-            articleType.name = body.articleType;
+            articleType.id = <number>typeId;
+            articleType.name = aceType;
             article.articleType = articleType;
         }
 
-        let seriesId = await this.checkArticleSeries(req, res, next);
+        let seriesMatch = content.match(h2SeriesReg);
+        let seriesName = '';
+        if (seriesMatch && seriesMatch[1]) {
+            seriesName = seriesMatch[1];
+        }
+        let seriesId = await this.checkArticleSeries(res, seriesName);
         if (!seriesId) {
             return next();
         } else if (seriesId != true) {
@@ -55,17 +88,25 @@ export class ArticleController {
             articleSeries.id = seriesId;
             article.articleSeries = articleSeries;
         }
-        if (isNotEmpty(body.id)) {
-            if (isInteger(body.id)) {
-                article.id = body.id;
+
+        let descriptMatch = content.match(pDescriptReg);
+        if (descriptMatch && descriptMatch[1]) {
+            article.docreader = descriptMatch[1];
+        }
+        // 去掉了h1的内容
+        article.content = content.replace(htext, '');
+
+        if (isNotEmpty(id)) {
+            if (isInteger(id)) {
+                article.id = id;
             } else {
                 return res.sendError('id入参类型异常');
             }
         }
-        if (isEmpty(body.title) || (body.title.length > 50)) {
+        if (isEmpty(article.title) || (article.title.length > 50)) {
             return res.sendError('标题长度必须为1-50个字符');
         }
-        if (isEmpty(body.content)) {
+        if (isEmpty(article.content)) {
             return res.sendError('内容不能为空');
         }
         // if (isNotInteger(body.articleTypeId)) {
@@ -78,7 +119,7 @@ export class ArticleController {
             users.id = 2;
         }
         article.users = users;
-        Object.assign(article, Only(body, ['title', 'content', 'pricture', 'docreader', 'labelId', 'publishDate', 'type']))
+        // Object.assign(article, Only(body, ['title', 'content', 'pricture', 'docreader', 'labelId', 'publishDate', 'type']))
 
         if (article.type == 1) {
             if (isEmpty(article.picture)) {
@@ -92,18 +133,46 @@ export class ArticleController {
         if (!article.id) {
             article.createDate = nowTime;
         }
-        if (!article.docreader || !article.docreader.replace(/\s/g, '')) {
-            // let docreader = article.content;
-            // docreader = docreader.replace(/(\&|\&)gt;/g, ">")
-            //     .replace(/(\&|\&)lt;/g, "<")
-            //     .replace(/(\&|\&)quot;/g, "\"");
-            // article.docreader = docreader.replace(/\<[^\>]+\>|\< ?\/[^\>]+\>/g, '').substr(0, 200);
-        }
-        article.picture = body.picture;
+        article.picture = '';
         let lastId = await articleService.saveOrUpdateAndGetId(article);
-        res.sendSuccess({ lastId });
+        content = this.appendMeta(content, nowTime, aceType, seriesName, htext);
+        fs.writeFile(`/data/website/html/${lastId}.html`, content, function (err) {
+            if (err) {
+                console.log('生成文件失败' + err.message);
+                return;
+            }
+            console.log('生成文件成功')
+        });
+        res.sendSuccess({ lastId, msg: '发布成功' });
     }
-
+    // 插入文章meta
+    appendMeta(content: string, time: string, type: string, series: string, htext: string): string {
+        let styles = `
+            <style>
+                .__sf-articleinfo-meta{
+                    margin-top: 10px;
+                    font-size: 12px;
+                    font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+                    color: #999;
+                }
+                .__sf-articleinfo-meta .__sf-articleinfo-meta-item:after{
+                    content: '|';
+                    display: inline-block;
+                    margin: 0 5px;
+                }
+            <style>
+        `;
+        // 请求一个图片，返回阅读量
+        let metas = `<div class="__sf-articleinfo-meta">
+            <span class="__sf-articleinfo-meta-item">发表于：${time}</span>
+            <span class="__sf-articleinfo-meta-item">分类：${type}</span>
+            <span class="__sf-articleinfo-meta-item" style="display:none">阅读次数：<span id="visitors"></span></span></div>`
+        let invalidStr = ('-' + type) + (series ? '-' + series : series);
+        let title = htext.replace(invalidStr, '');
+        content = content.replace(htext, `${styles}${title}${metas}`);
+        return content;
+    }
+    // 验证用户登陆
     async checkUserInfo(req, res, next) {
         let { body: { users: { email, password: upass } } } = req;
         if (isEmpty(email)) {
@@ -142,9 +211,8 @@ export class ArticleController {
         }
         return users;
     }
-
-    async checkArticleType(req, res, next) {
-        let { body: { articleType } } = req;
+    // 验证文章类型
+    async checkArticleType(res, articleType): Promise<number | boolean> {
         if (!articleType) {
             res.sendError('文章类型不能为空');
             return false;
@@ -162,9 +230,8 @@ export class ArticleController {
         }
         return typeId;
     }
-
-    async checkArticleSeries(req, res, next) {
-        let { body: { seriesName } } = req;
+    // 验证文章系列
+    async checkArticleSeries(res, seriesName): Promise<number | boolean> {
         if (!seriesName) {
             return true;
         }
@@ -181,8 +248,8 @@ export class ArticleController {
         }
         return seriesId;
     }
+    // 保存文章类型
     @Post('/savet')
-    // @Validation(ArticleCreateDto)
     async saveArticleTypeInfo({ body, session }, res) {
         var articleType = <ArticleType>{};
         if (isNotEmpty(body.id)) {
@@ -198,8 +265,8 @@ export class ArticleController {
         articleType.name = body.name;
         res.sendSuccess(await articleTypeService.saveOrUpdateArticleType(articleType));
     }
+    // 保存文章系列
     @Post('/saves')
-    // @Validation(ArticleCreateDto)
     async saveArticleSeriesInfo({ body, session }, res) {
         var articleSeries = <ArticleSeries>{};
         if (isNotEmpty(body.id)) {

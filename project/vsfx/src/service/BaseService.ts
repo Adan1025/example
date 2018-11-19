@@ -26,9 +26,6 @@ export class BaseService implements BaseServiceInterface {
         if (article.id) {
             let id = article.id;
             delete article.id;
-            console.log('~~~1')
-            console.log(id)
-            console.log(article)
             await this.getRepository(Model).updateById(id, article);
         } else {
             await this.getRepository(Model).insert(article);

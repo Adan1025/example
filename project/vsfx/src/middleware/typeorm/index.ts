@@ -3,11 +3,11 @@ const _config = (global["config"] || {}).mysql;
 require("reflect-metadata");
 const typeorm = require("typeorm");
 const path = require("path");
-module.exports = function() {
+module.exports = function () {
   const optTypeOrm = {
     type: "mysql",
     host: _config.host,
-    username: _config.username,
+    username: _config.user,
     password: _config.password,
     database: _config.database,
     port: _config.port,
@@ -17,7 +17,6 @@ module.exports = function() {
     entities: [path.join(__dirname, "../../entity/*.js")]
   };
   let connection = null;
-
   return async (req, res, next) => {
     if (!connection) {
       try {

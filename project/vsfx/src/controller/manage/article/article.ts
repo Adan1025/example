@@ -5,10 +5,8 @@ import { Article } from '../../../entity/article';
 import { ArticleType } from '../../../entity/articleType';
 import { Users } from '../../../entity/users';
 
-import renderer from '../../../render';
 import { ArticleSeries } from '../../../entity/articleSeries';
 import { ArticleSeriesService } from '../../../service/article/articleSeries';
-
 /**
  * 文章controller
  * 
@@ -110,18 +108,6 @@ export class ArticleController {
             article.articleSeries = articleSeries;
         }
 
-
-
-        // id: 0,
-        //         title:'',
-        //         content: '',
-        //         picture: '',
-        //         docreader:'',
-        //         articleTypeId: '',
-        //         labelId:[],
-        //         publishDate: '',
-        //         type: '1', //文章或短记
-
         Object.assign(article, Only(body, ['title', 'content', 'pricture', 'docreader', 'labelId', 'publishDate', 'type']))
 
         if (article.type == 1) {
@@ -144,7 +130,6 @@ export class ArticleController {
             article.docreader = docreader.replace(/\<[^\>]+\>|\< ?\/[^\>]+\>/g, '').substr(0, 200);
         }
         article.picture = body.picture;
-        // renderer({ articleinfo: article, authorInfo: session.users })
         res.sendSuccess(await articleService.saveOrUpdateArticle(article));
     }
 

@@ -1,4 +1,4 @@
-global['config'] = require('../config/configration');
+global['config'] = require('global/config/configration');
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -21,8 +21,7 @@ import { DefineRoute } from '../@common';
 // app.use('/static', express.static('static'));
 
 app.use(Middleware.typeorm());
-app.use(express.json({ limit: '5mb' }))
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '5mb' }))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
     // store: new RedisStore({

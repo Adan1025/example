@@ -202,8 +202,7 @@ export class ArticleService extends BaseService implements ArticleInterface {
         //     return await transactionalEntityManager.query(`SELECT LAST_INSERT_ID();`);
         //     // ...
         // });
-        // console.log('~~~')
-        // console.log(a);
+
         const connection = this.getConnection();
         const queryRunner = connection.createQueryRunner();
 
@@ -213,7 +212,12 @@ export class ArticleService extends BaseService implements ArticleInterface {
         await queryRunner.startTransaction();
         try {
             await queryRunner.manager.save(Article, article);
-            let [{ lastId }] = await queryRunner.query(`select last_insert_id() as lastId;`);
+            let lastId = 0;
+            if (article.id) {
+                lastId = article.id;
+            } else {
+                [{ lastId }] = await queryRunner.query(`select last_insert_id() as lastId;`);
+            }
             // commit transaction now:
             await queryRunner.commitTransaction();
             return lastId;

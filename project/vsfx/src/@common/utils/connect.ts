@@ -14,7 +14,6 @@ export const DefineEntity = (entityPath: string) => {
             }
         });
     } catch (e) {
-        console.log(e)
         console.log(`有Entity挂载失败啦:~err:${e.message}`);
     }
 }
@@ -57,8 +56,6 @@ export const DefineRoute = (controllersPath: string | string[]) => {
                             router[method](path, function (req: any, res: any, next: any) {
                                 if (!_noInterceptors && req.originalUrl.indexOf('/manage/') === 0) {
                                     if (req.url.indexOf('/users/login') === -1 && (!req.session || !req.session.users || !req.session.users.id)) {
-                                        console.log(req.url);
-                                        console.log(req.session)
                                         res.send({
                                             status: 998,
                                             errmsg: '登陆态超时'
@@ -149,7 +146,6 @@ function __explorer(cpaths: string) {
             }
         });
     } catch (e) {
-        console.log(e)
         console.log(`connect获取文件失败啦~err:${e.message}`);
     }
     return fileArr;
