@@ -23,14 +23,14 @@ interface USERS {
 interface DATA {
     id: number
     users: USERS
-    title: string
-    articleType: string
+    // title: string
+    // articleType: string
     content: string
-    disabled: number
-    docreader: string | null
-    publishDate: string
-    type: number
-    seriesName?: string
+    // disabled: number
+    // docreader: string | null
+    // publishDate: string
+    // type: number
+    // seriesName?: string
 }
 type FILEPATH = string
 
@@ -40,10 +40,10 @@ let _blogConfig: BLOGCONFIG;
 let password: string | undefined = undefined;
 let newArticleType: string | undefined = '';
 const fileReg = /(.*\/)([\S\w]+)$/;
-const h1Reg = /<h1[^>]+>([^<]+)<\/h1>/;
-const h2SeriesReg = /<h2[^>]+>@Ser:([^<]+)<\/h2>/;
-const pDescriptReg = /<p>@Der:([^<]+)<\/p>/;
-const titleReg = /(.*)\-(.*)$/;
+// const h1Reg = /<h1[^>]+>([^<]+)<\/h1>/;
+// const h2SeriesReg = /<h2[^>]+>@Ser:([^<]+)<\/h2>/;
+// const pDescriptReg = /<p>@Der:([^<]+)<\/p>/;
+// const titleReg = /(.*)\-(.*)$/;
 const idReg = /.*\/(\[\d+\])?[\S\w]+$/;
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -144,9 +144,11 @@ function getConf(callback: Function) {
     let articleTypeApiUrl = workspace.getConfiguration('qualcBlog').get<string>('articleTypeApiUrl');
     let userName = workspace.getConfiguration('qualcBlog').get<string>('userName');
     if (!articleApiUrl) {
+        articleApiUrl = 'http://manage.qualc.cn/manage/vsarticle/savea'
         return window.showInformationMessage('未配置接口名');
     }
     if (!articleTypeApiUrl) {
+        articleTypeApiUrl = 'http://manage.qualc.cn/manage/vsarticle/savet';
         return window.showInformationMessage('未配置类型接口名');
     }
     if (!userName) {
@@ -170,13 +172,13 @@ function getId(): number {
     return 0;
 }
 
-function getLocalDate() {
-    let date = new Date();
-    return date.getFullYear + '-' + ten(date.getMonth() + 1) + '-' + ten(date.getDate()) + ' ' + ten(date.getHours()) + ':' + ten(date.getMinutes()) + ':' + ten(date.getSeconds());
-}
-function ten(num: string | number) {
-    return num < 10 ? '0' + num : num;
-}
+// function getLocalDate() {
+//     let date = new Date();
+//     return date.getFullYear + '-' + ten(date.getMonth() + 1) + '-' + ten(date.getDate()) + ' ' + ten(date.getHours()) + ':' + ten(date.getMinutes()) + ':' + ten(date.getSeconds());
+// }
+// function ten(num: string | number) {
+//     return num < 10 ? '0' + num : num;
+// }
 async function PostArticle() {
     let id = getId();
     let data: DATA = {
@@ -185,34 +187,13 @@ async function PostArticle() {
             email: _blogConfig.userName,
             password: password
         },
-        title: "",
-        articleType: "",
-        content: "",
-        disabled: 1,
-        docreader: "",
-        publishDate: getLocalDate(),
-        type: 1
+        content: ''
+        // publishDate: getLocalDate()
     }
     try {
-        // window.showInformationMessage('########3');
         let filePath: FILEPATH = getLocalFilePath();
         let content: any = fs.readFileSync(filePath).toString();
-        let [htext, title] = content.match(h1Reg);
-        let titleMatch = title.match(titleReg);
-        data.title = titleMatch && titleMatch[1];
-        data.articleType = titleMatch && titleMatch[2];
-        if (!data.title || !data.articleType) {
-            return window.showInformationMessage('标题格式不正确，格式为 `#标题-类型`' + title);
-        }
-        let seriesMatch = content.match(h2SeriesReg);
-        if (seriesMatch && seriesMatch[1]) {
-            data.seriesName = seriesMatch[1];
-        }
-        let descriptMatch = content.match(pDescriptReg);
-        if (descriptMatch && descriptMatch[1]) {
-            data.docreader = descriptMatch[1];
-        }
-        data.content = content.replace(htext, '');
+        data.content = content;
         let result: RESULT = await Proxy.proxyPost(_blogConfig.articleApiUrl, data);
         if (result.status == 1) {
             result = result.results;
@@ -220,7 +201,7 @@ async function PostArticle() {
                 if (!id) {
                     addLocalFileId(result.results.lastId || 0);
                 }
-                return window.showInformationMessage(result.results);
+                return window.showInformationMessage(result.results.msg);
             }
         }
         window.showInformationMessage(result.errmsg);
