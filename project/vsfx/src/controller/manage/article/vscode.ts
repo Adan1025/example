@@ -136,7 +136,7 @@ export class ArticleController {
         article.picture = '';
         let lastId = await articleService.saveOrUpdateAndGetId(article);
         content = this.appendMeta(content, nowTime, aceType, seriesName, htext);
-        fs.writeFile(`/data/website/html/${lastId}.html`, content, function (err) {
+        fs.writeFile(`/data/web_tbwork_static/html/${lastId}.html`, content, function (err) {
             if (err) {
                 console.log('生成文件失败' + err.message);
                 return;

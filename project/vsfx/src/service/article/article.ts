@@ -35,6 +35,7 @@ export class ArticleService extends BaseService implements ArticleInterface {
                 'article.picture picture',
                 'articleType.id articleTypeId',
                 'articleType.name articleTypeName',
+                'articleType.iconUrl iconUrl',
                 'article.disabled disabled',
                 'article.type type',
                 'users.id usersId',
