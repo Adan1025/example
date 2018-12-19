@@ -3,7 +3,7 @@
         <header class="headband"></header>
         <el-row class="main">
             <el-col :span="4" class="left">
-                <el-menu :router="true" >
+                <el-menu :router="true">
                     <template v-for="item in menuList" v-if="item.isShow == 1">
                         <el-submenu :index="item.id + ''" v-if="item.menuUri == '/'">
                             <template slot="title">
@@ -11,7 +11,7 @@
                                 {{item.menuName}}
                             </template>
                             <el-menu-item-group v-if="item.children && item.children.length > 0">
-                                <el-menu-item v-for="citem in item.children" :index="citem.menuUri" :key="citem.id"  v-if="citem.isShow == 1">
+                                <el-menu-item v-for="citem in item.children" :index="citem.menuUri" :key="citem.id" v-if="citem.isShow == 1">
                                     {{citem.menuName}}
                                 </el-menu-item>
                             </el-menu-item-group>
@@ -29,7 +29,7 @@
                     </el-menu-item>
                 </el-menu>
             </el-col>
-            <el-col  :span="20">
+            <el-col :span="20">
                 <el-breadcrumb separator="/" class="breadcrumb">
                     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
                     <el-breadcrumb-item :to="{path: '/articlePulish'}">暂未实现</el-breadcrumb-item>
@@ -42,14 +42,14 @@
 <script>
 const HttpUrl = {
     findMenuList: '/manage/usersmenu/getMenuList',
-    quitLogin: '/manage/users/quitLogin',
-}
+    quitLogin: '/manage/users/quitLogin'
+};
 
 export default {
     name: 'manage-index',
     data() {
         return {
-            menuList:[]
+            menuList: []
             // menuList:[{
             //     id: 1,
             //     name: '用户中心',
@@ -108,28 +108,28 @@ export default {
             //         key: 'interface'
             //     }]
             // }]
-        }
+        };
     },
-    created(){
+    created() {
         this.loadMenuList();
     },
-    methods:{
-        loadMenuList(){
-            this.$.get(HttpUrl.findMenuList).then( results => {
+    methods: {
+        loadMenuList() {
+            this.$.get(HttpUrl.findMenuList).then(results => {
                 this.menuList = results;
             });
         },
-        quitLogin(){
-            this.$.get(HttpUrl.quitLogin).then( res => {
+        quitLogin() {
+            this.$.get(HttpUrl.quitLogin).then(res => {
                 this.$router.push({
-                path:'/login',
-                query:{'redirect': this.$route.fullPath}, // fullPath当前路由
+                    path: '/login',
+                    query: { redirect: this.$route.fullPath } // fullPath当前路由
                 });
             });
         }
     }
-}
+};
 </script>
 <style scoped lang="scss" type="text/css">
-    @import '../../css/components/index.scss';
+@import '../../css/components/index.scss';
 </style>

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import { Get } from '@/axios';
 import 'Style/main/hot.scss';
-
 
 export class HotComponent extends Component {
     state = {
         articleList: []
-    }
+    };
     async componentDidMount() {
         let articleList = [];
 
@@ -20,14 +20,14 @@ export class HotComponent extends Component {
 
         this.setState({
             articleList: await this.findHotArticle()
-        })
+        });
     }
     render() {
         let { articleList } = this.state,
             listStr = [];
 
         if (!articleList || articleList.length == 0) {
-            return null
+            return null;
         }
         listStr = articleList.map(item => {
             return (
@@ -37,20 +37,20 @@ export class HotComponent extends Component {
                         <span className="c-hot-praise">{item.praise}</span>
                     </a>
                 </li>
-            )
+            );
         });
         return (
             <div className="c-box">
                 <div className="c-box-header">热门排行</div>
                 <div className="c-hot">
-                    <ul className="c-hot-list">
-                        {listStr}
-                    </ul>
+                    <ul className="c-hot-list">{listStr}</ul>
                 </div>
             </div>
         );
     }
     async findHotArticle() {
-        return Get(`/restapi/article/info/${this.props.match.params.id}`).then((results) => results);
+        // return Get(`/restapi/article/info/${this.props.match.params.id}`).then(
+        //     results => results
+        // );
     }
 }

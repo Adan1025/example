@@ -1,8 +1,8 @@
 <template>
-    <div class="login-box" id="app" >
+    <div class="login-box" id="app">
         <el-row>
             <el-col :span="24">
-                <el-input id="email"  v-model="email" placeholder="请输入帐号">
+                <el-input id="email" v-model="email" placeholder="请输入帐号">
                     <template slot="prepend">帐号</template>
                 </el-input>
             </el-col>
@@ -22,50 +22,53 @@
     </div>
 </template>
 <script type="text/javascript">
-    const HttpUrl = {
-        loginUrl: '/manage/users/login'
-    }
+const HttpUrl = {
+    loginUrl: '/manage/users/login'
+};
 export default {
-    data () {
+    data() {
         return {
-            email : '',
-            password : ''
-        }
+            email: '',
+            password: ''
+        };
     },
-    created(){
-        document.body.onkeyup = (event) => {
-            this.enterLogin(event)
-        }
+    created() {
+        document.body.onkeyup = event => {
+            this.enterLogin(event);
+        };
+        console.log('##############');
+        console.log(this);
     },
-    methods : {
-        enterLogin(event){
-            if(event.keyCode==13){
+    methods: {
+        enterLogin(event) {
+            if (event.keyCode == 13) {
                 this.check();
             }
         },
-        check(){
+        check() {
             //获取值
             var email = this.email;
             var password = this.password;
-            if(email == '' || password == ''){
+            if (email == '' || password == '') {
                 this.$message({
-                    message : '账号或密码为空！',
-                    type : 'error'
-                })
+                    message: '账号或密码为空！',
+                    type: 'error'
+                });
                 return;
             }
-            this.$.post(HttpUrl.loginUrl, {email ,password }).then( res => {
-                    let rec = this.$route.query.redirect;
-                    if(rec){
-                        this.$router.push(rec);
-                    }else{rec
-                        this.$router.push('/');
-                    }
+            this.$.post(HttpUrl.loginUrl, { email, password }).then(res => {
+                let rec = this.$route.query.redirect;
+                if (rec) {
+                    this.$router.push(rec);
+                } else {
+                    rec;
+                    this.$router.push('/');
+                }
             });
         }
     },
-    beforeDestroy(){
-        document.body.onkeyup = function(){}
+    beforeDestroy() {
+        document.body.onkeyup = function() {};
     }
 };
 </script>
@@ -74,16 +77,16 @@ export default {
 .el-row {
     margin-bottom: 20px;
     &:last-child {
-      margin-bottom: 0;
+        margin-bottom: 0;
     }
-  }
-    .login-box {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 240px;
-        height: 160px;
-        margin-top:-80px;
-        margin-left: -120px;
-    }
+}
+.login-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 240px;
+    height: 160px;
+    margin-top: -80px;
+    margin-left: -120px;
+}
 </style>
