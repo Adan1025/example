@@ -32,7 +32,7 @@ export class ArticleTypeService extends BaseService implements ArticleTypeInterf
      * @memberof ArticleTypeInterface
      */
     async findAll(disabled: number): Promise<Array<ArticleType>> {
-        let query = 'select id, name from article_type where 1=1';
+        let query = 'select id, name, iconUrl from article_type where 1=1';
         if (isInteger(disabled)) {
             query += ` and disabled=${disabled}`;
         }
@@ -98,7 +98,7 @@ export class ArticleTypeService extends BaseService implements ArticleTypeInterf
         //         'at.name name',
         //     ]).where('at.name like "%:name%"', { name: typeName });
         // let typeList: Array<ArticleType> = await query.printSql().getRawMany();
-        let typeList: Array<ArticleType> = await this.getRepository(ArticleType).query(`SELECT name FROM article_type  WHERE name like "%${typeName}%"`);
+        let typeList: Array<ArticleType> = await this.getRepository(ArticleType).query(`SELECT name, iconUrl FROM article_type  WHERE name like "%${typeName}%"`);
         return typeList;
     }
 

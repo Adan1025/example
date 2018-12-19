@@ -10,4 +10,6 @@ export class ArticleType {
     parentId: number;
     @Column('varchar', { length: 225, comment: '类型名称' })
     name: string;
+    @Column('varchar', { length: 225, comment: '默认icon' })
+    iconUrl: string;
 }

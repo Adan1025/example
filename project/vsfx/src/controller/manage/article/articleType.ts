@@ -41,7 +41,11 @@ export class ArticleTypeController {
         if (isEmpty(body.name) || (body.name.length > 25)) {
             return res.sendError('标题长度必须为1-25个字符');
         }
+        if (isEmpty(body.iconUrl)) {
+            return res.sendError('图片地址不能为空');
+        }
         articleType.name = body.name;
+        articleType.iconUrl = body.iconUrl;
         res.sendSuccess(await articleTypeService.saveOrUpdateArticleType(articleType));
     }
 
