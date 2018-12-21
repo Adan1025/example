@@ -1,6 +1,6 @@
 import { Controller, Get, Post, isInteger, Crypto, isNotEmpty, NoInterceptors } from '../../../@common';
 
-import { isEmpty, Format } from '../../../@common/utils';
+import { Only, isNotInteger, isEmpty, isFalse, Format } from '../../../@common/utils';
 import { ArticleService } from '../../../service/article/article';
 import { UsersService } from '../../../service/users/users';
 import { UsersInterfaceService } from '../../../service/users/usersInterface';
@@ -9,10 +9,8 @@ import { ArticleType } from '../../../entity/articleType';
 import { Users } from '../../../entity/users';
 import { ArticleTypeService } from '../../../service/article/articleType';
 import { ArticleSeriesService } from '../../../service/article/articleSeries';
-import { ArticleSeries } from '../../../entity/articleSeries';
+import { ArticleSeries } from 'entity/articleSeries';
 import * as fs from 'fs';
-import marked from 'marked';
-
 
 const articleService = new ArticleService();
 const usersService = new UsersService();
@@ -20,11 +18,10 @@ const articleTypeService = new ArticleTypeService();
 const articleSeriesService = new ArticleSeriesService();
 const usersInterfaceService = new UsersInterfaceService();
 
-
-const titleReg = /^# ?(.+)/;
-const typeReg = /^## ?\@T\:(.*)/;
-const SeriesReg = /^## ?\@S\:(.*)/;
-const descriptReg = /\> ?@D:(.*)/;
+const h1Reg = /<h1[^>]*>([^<]+)<\/h1>/;
+const h2SeriesReg = /<h2[^>]*>@Ser:([^<]+)<\/h2>/;
+const pDescriptReg = /<p>@Der:([^<]*)<\/p>/;
+const titleReg = /(.*)\-(.*)$/;
 
 type ARTICLE = {
     id?: number
@@ -50,39 +47,40 @@ export class ArticleController {
     @Post('/savea')
     async saveArticleInfo(req, res, next) {
         console.log(req.body)
-        let { body: { content, id, type, series } } = req;
+        let { body: { content, id } } = req;
         let loginUsers = await this.checkUserInfo(req, res, next);
         if (!loginUsers) {
             return next();
         }
 
-        let article = <Article>{};
-        article.coding = 2;
-        // # 这是标题 => ['# 这是标题', '这是标题']
-        let [htext, title] = content.match(titleReg) || [null, null];
-        if (!htext || !title) {
-            return res.sendError('标题不存在，格式为 `# 标题`');
-        }
-        article.title = title;
 
-        // ## @T:这是types => ['## @T:这是types', '这是types']
-        // let [htype, type] = content.match(typeReg) || [null, null];
-        // if (!article.title || !type) {
-        //     return res.sendError('类型不存在，格式为 `## @T:类型`');
-        // }
-        let typeId = await this.checkArticleType(res, type);
+        let article = <Article>{};
+        let [htext, title] = content.match(h1Reg) || [null, null];
+        if (!htext || !title) {
+            return res.sendError('标题不存在，格式为 `#标题-类型`');
+        }
+        let titleMatch = title.match(titleReg);
+        article.title = titleMatch && titleMatch[1];
+        let aceType = titleMatch && titleMatch[2];
+        if (!article.title || !aceType) {
+            return res.sendError('标题格式不正确，格式为 `#标题-类型`' + article.title);
+        }
+        let typeId = await this.checkArticleType(res, aceType);
         if (!typeId) {
             return next();
         } else {
             let articleType = <ArticleType>{};
             articleType.id = <number>typeId;
-            articleType.name = type;
+            articleType.name = aceType;
             article.articleType = articleType;
         }
 
-        // ## @S:这是series => ['## @S:这是series', '这是series']
-        // let [hseries, seriesName = ''] = content.match(SeriesReg) || [null, null];
-        let seriesId = await this.checkArticleSeries(res, series);
+        let seriesMatch = content.match(h2SeriesReg);
+        let seriesName = '';
+        if (seriesMatch && seriesMatch[1]) {
+            seriesName = seriesMatch[1];
+        }
+        let seriesId = await this.checkArticleSeries(res, seriesName);
         if (!seriesId) {
             return next();
         } else if (seriesId != true) {
@@ -91,15 +89,12 @@ export class ArticleController {
             article.articleSeries = articleSeries;
         }
 
-        // > @D:这是标题 => ['> @D:这是标题', '这是标题']
-        let [pdesc, docreader] = content.match(descriptReg) || [null, null];
-        if (docreader) {
-            article.docreader = docreader;
+        let descriptMatch = content.match(pDescriptReg);
+        if (descriptMatch && descriptMatch[1]) {
+            article.docreader = descriptMatch[1];
         }
-        content = content.replace(descriptReg, '> ' + docreader);
-
         // 去掉了h1的内容
-        // article.content = content.replace(htext, '');
+        article.content = content.replace(htext, '');
 
         if (isNotEmpty(id)) {
             if (isInteger(id)) {
@@ -140,9 +135,8 @@ export class ArticleController {
         }
         article.picture = '';
         let lastId = await articleService.saveOrUpdateAndGetId(article);
-        // content = this.appendMeta(content, nowTime, type, series, htext);
-        let html = marked(content);
-        fs.writeFile(`/data/web_tbwork_static/html/${lastId}.html`, html, function (err) {
+        content = this.appendMeta(content, nowTime, aceType, seriesName, htext);
+        fs.writeFile(`/data/web_tbwork_static/html/${lastId}.html`, content, function (err) {
             if (err) {
                 console.log('生成文件失败' + err.message);
                 return;

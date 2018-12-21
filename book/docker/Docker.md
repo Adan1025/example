@@ -248,12 +248,14 @@ $: docker run qualc/dockerfile3 /bin/echo 'this is cmd command line'
 写法二：ENTRYPOINT echo "this is cmd command"
 ```
 
-```js {.line-numbers} ENTRYPOINT
-["/bin/echo", "this is entrypoint"]
+```js {.line-numbers} 
+ENTRYPOINT ["/bin/echo", "this is entrypoint"]
 #-----
 
 $: docker run qualc/dockerfile3
 # > this is entrypoint
+
+
 
 ENTRYPOINT ["/bin/echo", "this is entrypoint"]
 CMD ["cmd command"]
@@ -262,12 +264,10 @@ CMD ["cmd command"]
 $: docker run qualc/dockerfile3
 # > this is entrypoint cmd command
 
-$: docker run qualc/dockerfile3
-'line'
+$: docker run qualc/dockerfile3 'line'
 # > this is entrypoint line
 
-$: docker run qualc/dockerfile3 /bin/echo
-'test'
+$: docker run qualc/dockerfile3 /bin/echo 'test'
 # > this is entrypoint /bin/echo test
 ```
 

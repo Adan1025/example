@@ -1,7 +1,5 @@
 {
-  "presets": [
-    "es2015"
-  ],
+  "presets": ["env"],
   "plugins": [
     [
       "transform-runtime",
@@ -9,13 +7,6 @@
         "helpers": false,
         "polyfill": false,
         "regenerator": true
-      }
-    ],
-    [
-      "component",
-      {
-        "libraryName": "elementui",
-        "styleLibraryName": "theme-chalk"
       }
     ]
   ]

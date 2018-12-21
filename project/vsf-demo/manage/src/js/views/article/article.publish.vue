@@ -1,17 +1,28 @@
 <template>
     <div class="container">
-        <el-form class="form-box article" label-width="80px">
+        <el-form class="form-box article"
+                 label-width="80px">
             <el-form-item label="标题:">
-                <el-input v-model="article.title" class="width50" placeholder="请输入标题"></el-input>
+                <el-input v-model="article.title"
+                          class="width50"
+                          placeholder="请输入标题"></el-input>
             </el-form-item>
             <el-form-item label分="类:">
-                <el-select class="width50" v-model="article.articleTypeId" placeholder="请选择分类" @change="articleTypeChangeHandle">
-                    <el-option v-for="item in articleType" :key="item.id" :label="item.name" :value="item.id">
+                <el-select class="width50"
+                           v-model="article.articleTypeId"
+                           placeholder="请选择分类"
+                           @change="articleTypeChangeHandle">
+                    <el-option v-for="item in articleType"
+                               :key="item.id"
+                               :label="item.name"
+                               :value="item.id">
                     </el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="概要:">
-                <el-input type="textarea" v-model="article.docreader" placeholder="请输入概要"></el-input>
+                <el-input type="textarea"
+                          v-model="article.docreader"
+                          placeholder="请输入概要"></el-input>
             </el-form-item>
             <el-form-item label="类型:">
                 <el-radio-group v-model="article.type">
@@ -19,43 +30,72 @@
                     <el-radio :label="2">短记</el-radio>
                 </el-radio-group>
             </el-form-item>
-            <el-form-item label="题图:" v-if="article.type != 2" class="headimg-box">
-                <el-select class="width50" v-model="article.picture" placeholder="请选择题图">
-                    <el-option v-for="item in pictureList" :key="item.id" :label="item.name" :value="item.imgUrl">
+            <el-form-item label="题图:"
+                          v-if="article.type != 2"
+                          class="headimg-box">
+                <el-select class="width50"
+                           v-model="article.picture"
+                           placeholder="请选择题图">
+                    <el-option v-for="item in pictureList"
+                               :key="item.id"
+                               :label="item.name"
+                               :value="item.imgUrl">
                     </el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="" ref="picture" v-if="article.type != 2" class="headimg-box">
-                <el-upload drag class="avatar-uploader" action="/manage/picture/upload" :data="picture" :show-file-list="false" :on-success="uploadSuccess" :on-error="uploadError">
-                    <div class="avatar-box" v-if="article.picture">
-                        <img :src="article.picture" class="avatar-headimg">
+            <el-form-item label=""
+                          ref="picture"
+                          v-if="article.type != 2"
+                          class="headimg-box">
+                <el-upload drag
+                           class="avatar-uploader"
+                           action="/manage/picture/upload"
+                           :data="picture"
+                           :show-file-list="false"
+                           :on-success="uploadSuccess"
+                           :on-error="uploadError">
+                    <div class="avatar-box"
+                         v-if="article.picture">
+                        <img :src="article.picture"
+                             class="avatar-headimg">
                     </div>
-                    <div class="el-upload__tip" slot="tip">
-                        <div class="el-upload__text">将文件拖到虚框，或点击虚框上传。 <el-checkbox v-model="picture.used">是否设为常用</el-checkbox>
+                    <div class="el-upload__tip"
+                         slot="tip">
+                        <div class="el-upload__text">将文件拖到虚框，或点击虚框上传。
+                            <el-checkbox v-model="picture.used">是否设为常用</el-checkbox>
                         </div>
                     </div>
                 </el-upload>
             </el-form-item>
-            <el-form-item label="编辑:">
+            <!-- <el-form-item label="编辑:">
                 <template>
-                    <el-radio v-model="editType" label="edit">富文本</el-radio>
-                    <el-radio v-model="editType" label="text">纯文本</el-radio>
+                    <el-radio v-model="editType"
+                              label="edit">富文本</el-radio>
+                    <el-radio v-model="editType"
+                              label="text">纯文本</el-radio>
                 </template>
-            </el-form-item>
-            <el-form-item label="正文:">
-                <!-- <vue-editor v-model="article.content" placeholder="请输入正文"></vue-editor> -->
-                <!-- <mavon-editor v-model="article.content" :ishljs="true" @change="formatContent"
+            </el-form-item> -->
+            <!-- <el-form-item label="正文:"><vue-editor v-model="article.content" placeholder="请输入正文"></vue-editor> -->
+            <!-- <mavon-editor v-model="article.content" :ishljs="true" @change="formatContent"
                     :editable="false" :toolbarsFlag="false" :defaultOpen="'preview'" :subfield="false"
-                ></mavon-editor> -->
+                ></mavon-editor></el-form-item> -->
+            <!-- <el-form-item label="正文:">
                 <div v-if="editType == 'text'">
-                    <el-input type="textarea" :rows="18" placeholder="请输入内容" v-model="article.content">
+                    <el-input type="textarea"
+                              :rows="18"
+                              placeholder="请输入内容"
+                              v-model="article.content">
                     </el-input>
                 </div>
-                <quill-editor v-model="article.content" v-else ref="myQuillEditor">
+                <quill-editor v-model="article.content"
+                              v-else
+                              ref="myQuillEditor">
                 </quill-editor>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="发布时间:">
-                <el-date-picker v-model="article.publishDate" type="datetime" placeholder="选择日期时间">
+                <el-date-picker v-model="article.publishDate"
+                                type="datetime"
+                                placeholder="选择日期时间">
                 </el-date-picker>
             </el-form-item>
             <!-- <el-form-item class="article-input article-label">
@@ -68,7 +108,8 @@
             </el-form-item> -->
             <el-form-item class="article-input">
                 <el-button @click="resetArticle">重置</el-button>
-                <el-button type="primary" @click="saveArticle">确认发布</el-button>
+                <el-button type="primary"
+                           @click="saveArticle">确认发布</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -80,11 +121,11 @@ const HttpUrl = {
     findArticleInfo: "/manage/article/info/",
     findPictureAll: "/manage/picture/all"
 };
-import CommFunc from "@common/CommFunc.js";
-import "quill/dist/quill.core.css";
-import "quill/dist/quill.snow.css";
-import "quill/dist/quill.bubble.css";
-import { quillEditor } from "vue-quill-editor";
+// import CommFunc from "@common/CommFunc.js";
+//  import "quill/dist/quill.core.css";
+// import "quill/dist/quill.snow.css";
+// import "quill/dist/quill.bubble.css";
+// import { quillEditor } from "vue-quill-editor";
 
 // import mavonEditor from 'mavon-editor'
 // markdown-it对象：md.s_markdown, md => mavonEditor实例
@@ -94,7 +135,7 @@ import { quillEditor } from "vue-quill-editor";
 //
 export default {
     components: {
-        quillEditor
+        // quillEditor
         // 'mavon-editor': mavonEditor.mavonEditor
     },
     data() {
@@ -270,13 +311,13 @@ export default {
 };
 </script>
 <style lang="scss" scoped type="text/css">
-@import "../../../css/components/article/article.pulish.scss";
+@import '../../../css/components/article/article.pulish.scss';
 </style>
 <style lang="scss" type="text/css">
 .quill-editor {
-    .ql-container.ql-snow {
-        overflow-y: scroll;
-        height: 300px;
-    }
+	.ql-container.ql-snow {
+		overflow-y: scroll;
+		height: 300px;
+	}
 }
 </style>
