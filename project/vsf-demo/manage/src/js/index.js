@@ -12,9 +12,6 @@ import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios';
 import '../css/layout.scss';
 
-
-
-
 // Vue.use(Row);
 // Vue.use(Button);
 // Vue.use(Input);
@@ -50,8 +47,6 @@ import '../css/layout.scss';
 // // Vue.prototype.$notify = Notification;
 // Vue.prototype.$message = Message;
 
-
-
 Vue.use(VueRouter);
 Vue.use(Element);
 // Vue.use(axios);
@@ -63,41 +58,44 @@ let axiosIns = axios.create({});
 // axiosIns.defaults.headers.post['X-Requested-With'] = 'XMLHttpRequest'
 // axiosIns.defaults.baseURL = 'http://127.0.0.1:7779/';
 // 子类的拦截器，对结果是否正常做出判断
-axiosIns.interceptors.response.use(res => {
-    // 对响应数据做点什么
-    let data = res.data;
-    let status = res.status;
-    if (status === 200 || status === 304 || status === 201) {
-        status = data.status;
-        if (status === 998) {
-            app.$router.push({
-                path: '/login',
-                query: { 'redirect': app.$route.fullPath },
-            });
-        } else if (status === 997) {
-            // app.$message.error(data.errmsg);
-            app.$message.error(data.errmsg);
-            return Promise.reject(res);
-        } else if (status == 1) {
-            return data.results;
+axiosIns.interceptors.response.use(
+    res => {
+        // 对响应数据做点什么
+        let data = res.data;
+        let status = res.status;
+        if (status === 200 || status === 304 || status === 201) {
+            status = data.status;
+            if (status === 998) {
+                app.$router.push({
+                    path: '/login',
+                    query: { redirect: app.$route.fullPath }
+                });
+            } else if (status === 997) {
+                // app.$message.error(data.errmsg);
+                app.$message.error(data.errmsg);
+                return Promise.reject(res);
+            } else if (status == 1) {
+                return data.results;
+            } else {
+                app.$message.error(data.errmsg);
+                return Promise.reject(res);
+            }
         } else {
-            app.$message.error(data.errmsg);
             return Promise.reject(res);
         }
-    } else {
-        return Promise.reject(res);
+    },
+    error => {
+        // 对响应错误做点什么
+        return Promise.reject(error);
     }
-}, error => {
-    // 对响应错误做点什么
-    return Promise.reject(error)
-});
+);
 
 let ajaxMethod = ['get', 'post'];
 let api = {};
-ajaxMethod.forEach((method) => {
-    api[method] = function (uri, data, config) {
+ajaxMethod.forEach(method => {
+    api[method] = function(uri, data, config) {
         // 对axios包装的一层
-        return new Promise(function (resolve, reject) {
+        return new Promise(function(resolve, reject) {
             if (!uri) {
                 app.$message.error('request url不能为空');
             }
@@ -113,23 +111,24 @@ ajaxMethod.forEach((method) => {
             if (method == 'get') {
                 data = {
                     params: data
-                }
+                };
             }
-            axiosIns[method](uri, data, config).then((json) => {
-                resolve(json);
-                loading.close();
-            }).catch((response) => {
-                // 拦截器里reject都会走到这里
-                if (response.status === 200 && response.data.status == 0) {
-                    app.$message(response.data.errmsg);
-                }
-                loading.close();
-            })
-        })
-    }
+            axiosIns[method](uri, data, config)
+                .then(json => {
+                    resolve(json);
+                    loading.close();
+                })
+                .catch(response => {
+                    // 拦截器里reject都会走到这里
+                    if (response.status === 200 && response.data.status == 0) {
+                        app.$message(response.data.errmsg);
+                    }
+                    loading.close();
+                });
+        });
+    };
 });
 Vue.prototype.$ = api;
-
 
 const router = new VueRouter({
     // 默认hash
@@ -144,7 +143,6 @@ const app = new Vue({
     components: {
         [IndexComponents.name]: IndexComponents
     },
-    router,
+    router
     // store
 });
-

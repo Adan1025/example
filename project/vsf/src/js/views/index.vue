@@ -41,90 +41,90 @@
 </template>
 <script>
 const HttpUrl = {
-    findMenuList: '/manage/usersmenu/getMenuList',
-    quitLogin: '/manage/users/quitLogin'
+    findMenuList: "/manage/usersmenu/getMenuList",
+    quitLogin: "auth/groupList"
 };
 
 export default {
-    name: 'manage-index',
+    name: "manage-index",
     data() {
         return {
             // 定义数据对象，  我先定义了固定的数据，没有通过接口去获取值
             menuList: [
                 {
                     id: 1,
-                    menuName: '用户中心',
-                    menuUri: '/',
+                    menuName: "用户中心",
+                    menuUri: "/",
                     parentId: 0,
-                    key: 'users',
+                    key: "users",
                     isShow: 1,
                     children: [
                         {
                             id: 2,
-                            menuName: '用户管理',
-                            menuUri: '/users/usersList',
+                            menuName: "用户管理",
+                            menuUri: "/users/usersList",
                             parentId: 1,
-                            key: 'users',
+                            key: "users",
                             isShow: 1
                         },
                         {
                             id: 3,
-                            menuName: '用户添加',
-                            menuUri: '/users/usersSave',
+                            menuName: "用户添加",
+                            menuUri: "/users/usersSave",
                             parentId: 1,
-                            key: 'users',
+                            key: "users",
                             isShow: 1
                         }
                     ]
                 },
                 {
                     id: 4,
-                    menuName: '文章中心',
-                    menuUri: '/',
+                    menuName: "文章中心",
+                    menuUri: "/",
                     parentId: 0,
-                    key: 'article',
+                    key: "article",
                     isShow: 1,
                     children: [
                         {
                             id: 5,
-                            menuName: '文章管理',
-                            menuUri: '/article/articleList',
+                            menuName: "文章管理",
+                            menuUri: "/article/articleList",
                             parentId: 4,
-                            key: 'article',
+                            key: "article",
                             isShow: 1
                         },
                         {
                             id: 6,
-                            menuName: '文章发布',
-                            menuUri: '/article/articlePulish',
+                            menuName: "文章发布",
+                            menuUri: "/article/articlePulish",
                             parentId: 4,
-                            key: 'article',
+                            key: "article",
                             isShow: 1
                         }
                     ]
                 },
                 {
                     id: 7,
-                    menuName: '权限中心',
-                    menuUri: '/',
+                    menuName: "权限中心",
+                    menuUri: "/",
                     parentId: 0,
-                    key: 'power',
+                    key: "power",
                     isShow: 1,
                     children: [
                         {
                             id: 8,
-                            menuName: '菜单管理',
-                            menuUri: '/power/menu',
+                            menuName: "菜单管理",
+                            menuUri: "/power/menu",
                             parentId: 7,
-                            key: 'menu',
+                            key: "menu",
                             isShow: 1
                         },
                         {
                             id: 9,
-                            menuName: '接口管理',
-                            menuUri: '/power/interface',
+                            menuName: "接口管理",
+                            menuUri: "/power/interface",
                             parentId: 7,
-                            key: 'interface',
+                            key: "interface",
                             isShow: 1
                         }
                     ]
@@ -154,7 +154,7 @@ export default {
             this.$.get(HttpUrl.quitLogin).then(res => {
                 // router的自己看api
                 this.$router.push({
-                    path: '/login',
+                    path: "/login",
                     query: { redirect: this.$route.fullPath } // fullPath当前路由
                 });
             });
@@ -164,5 +164,5 @@ export default {
 </script>
 
 <style scoped type="text/css">
-@import '../../css/index.css';
+@import "../../css/index.css";
 </style>

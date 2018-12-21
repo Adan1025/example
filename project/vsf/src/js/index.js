@@ -17,7 +17,7 @@ let axiosIns = axios.create({});
 
 // 设定子类的配置信息
 // axiosIns.defaults.headers.post['X-Requested-With'] = 'XMLHttpRequest'
-// axiosIns.defaults.baseURL = 'http://127.0.0.1:7779/';
+axiosIns.defaults.baseURL = 'http://result.eolinker.com/XCWDk8vf3194a900bd181efd99f88335ecd69c25691d3f0?uri=';
 // 子类的拦截器，对结果是否正常做出判断
 axiosIns.interceptors.response.use(
     res => {

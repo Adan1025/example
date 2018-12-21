@@ -13,19 +13,42 @@ shell.mkdir('-p', './dist/js/common');
 shell.cp('-R', './src/js/common/flexible_v2.js', './dist/js/common');
 
 module.exports = {
+    devServer: {
+        port: 7777,
+        publicPath: '/', //'http://localhost:7777',
+        contentBase: false, // since we use CopyWebpackPlugin.
+        compress: true,
+        open: true,
+        proxy: {
+            '/restapi/': {
+                changeOrigin: true,
+                secure: false,
+                target: 'http://127.0.0.1:7779/'
+                // target: 'http://blog.qualc.cn/', // 将 URL 中带有 /api 的请求代理到本地的 3000 端口的服务上
+                // pathRewrite: { '^/api': '' }, // 把 URL 中 path 部分的 `api` 移除掉
+            }
+        },
+        hot: true // 开启热更新
+    },
+    target: 'web',
     watch: true,
-    context: path.resolve(__dirname + '/src/js/'),
+    context: path.resolve(__dirname + '/src/'),
     entry: {
-        index: './index.js',
+        index: './js/index.js',
         vue: ['vue', 'vue-router', 'vuex', 'axios'],
+        common: ['@common/DOM.js', '@common/CommFunc.js'],
         elementui: 'element-ui'
     },
     output: {
         path: __dirname + '/dist/js',
         filename: '[name].min.js',
+        chunkFilename: '[name].chunk.js',
         publicPath: '/js/' // 设置引用路径 如ttf等文件
     },
     plugins: [
+        new webpack.NamedModulesPlugin(), // 用于启动 HMR 时可以显示模块的相对路径
+        new webpack.HotModuleReplacementPlugin(), // Hot Module Replacement 的插件
+
         // 该插件能够将资源文件压缩为.gz文件，并且根据客户端的需求按需加载。
         // compression-webpack-plugin
         new CompressionPlugin({
@@ -36,23 +59,12 @@ module.exports = {
             minRatio: 0
         }),
 
-        /*new webpack.optimize.UglifyJsPlugin({
-            // 最紧凑的输出
-            beautify: false,
-            // 删除所有的注释
-            comments: false,
-            compress: {
-                // 在UglifyJs删除没有用到的代码时不输出警告
-                warnings: false,
-                // 删除所有的 `console` 语句
-                // 还可以兼容ie浏览器
-                // drop_console: true,
-                // 内嵌定义了但是只用到一次的变量
-                collapse_vars: true,
-                // 提取出出现多次但是没有定义成变量去引用的静态值
-                reduce_vars: true,
-            }
-        }),*/
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {
+        //         // 在UglifyJs删除没有用到的代码时不输出警告
+        //         warnings: false,
+        //     }
+        // }),
         // 抽取公共方法
         // new webpack.optimize.CommonsChunkPlugin({
         //     name: 'common',
@@ -60,28 +72,38 @@ module.exports = {
         //     chunks: ['index', 'common']    // extract commonChunk  from index & common
         // }),
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['vue', 'elementui'],
-            filename: '[name].[hash].js'
+            name: ['vue', 'elementui', 'common'],
+            filename: '[name].js'
         }),
         new webpack.DefinePlugin({
             //    // 开发环境是不是生产
-            PRODUCTION: JSON.stringify(true)
+            PRODUCTION: JSON.stringify(false)
         }),
+        // new webpack.DefinePlugin({
+        //     'process.env': {
+        //         NODE_ENV: JSON.stringify('develop')
+        //     }
+        // }),
         new HtmlWebpackPlugin({
             //根据模板插入css/js等生成最终HTML
             title: '测试', // 模板参数
             // msg: '这是一个测试参数的测试参数',// 模板参数
             filename: '../index.html', //生成的html存放路径，相对于 output -> path
-            template: '../template/index.html', //html模板路径, 相对于 output -> path
+            template: './template/index.html', //html模板路径, 相对于 output -> path
             inject: 'body'
             // ,hash: true
         }),
         new ExtractTextPlugin('../css/[name].css')
+        // new webpack.HotModuleReplacementPlugin()
     ],
     resolve: {
         extensions: ['.js', '.vue', '.css'],
         alias: {
-            vue$: 'vue/dist/vue.common.js'
+            vue$: 'vue/dist/vue.common.js',
+            '@views': path.resolve(__dirname, './src/js/views/'),
+            '@common': path.resolve(__dirname, './src/js/common/')
+            // 'vue$': 'vue/dist/vue.js'
+            // 'vue$': 'vue/dist/vue.esm.js'
         }
     },
     module: {
@@ -94,7 +116,8 @@ module.exports = {
                 query: {
                     // .babelrc 存在是   优先.babelrc
                     presets: [
-                        'es2015' /*['es2015', {
+                        'es2015'
+                        /*['es2015', {
                         "modules": false  //消除unused code
                       }]*/
                     ],
@@ -106,6 +129,13 @@ module.exports = {
                                 helpers: false,
                                 polyfill: false,
                                 regenerator: true
+                            }
+                        ],
+                        [
+                            'component',
+                            {
+                                libraryName: 'elementui',
+                                styleLibraryName: 'theme-chalk'
                             }
                         ]
                         /*[// 如果你的项目中用到了UI组件库，只加载用到的组件
@@ -154,3 +184,23 @@ module.exports = {
         ]
     }
 };
+
+if (process.env.NODE_ENV === 'production') {
+    module.exports.devtool = '#source-map';
+    // http://vue-loader.vuejs.org/en/workflow/production.html
+    module.exports.plugins = (module.exports.plugins || []).concat([
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: '"production"'
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        }),
+        new webpack.LoaderOptionsPlugin({
+            minimize: true
+        })
+    ]);
+}

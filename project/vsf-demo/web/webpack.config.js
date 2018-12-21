@@ -20,7 +20,7 @@ module.exports = {
     context: path.resolve(__dirname + "/static/js/"),
     entry: {
         index: "./index.js",
-        vue: ['vue', 'vue-router',  'axios'],
+        vue: ['vue', 'vue-router', 'axios'],
     },
     output: {
         path: __dirname + "/dist/js",
@@ -42,7 +42,7 @@ module.exports = {
             // "typeof window": JSON.stringify("object")
         }),
         new ExtractTextPlugin({
-            filename:  (getPath) => {
+            filename: (getPath) => {
                 console.log('###########')
                 console.log(getPath('../css/[name].css'))
                 console.log(getPath('../css/[name].css').replace('js/../css', 'css'))
@@ -120,31 +120,46 @@ module.exports = {
     },
     watch: true,
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js$/,
                 //include: '', //要处理的目录
                 exclude: /^node_modules$/,//排除不处理的目录
                 loader: 'babel-loader',
-            },{
+                query: {
+                    // .babelrc 存在是   优先.babelrc
+                    presets: ['env'],
+                    // 解决编译打包后 $export is not a function  异常
+                    plugins: [
+                        [
+                            'transform-runtime',
+                            {
+                                helpers: false,
+                                polyfill: false,
+                                regenerator: true
+                            }
+                        ]
+                    ]
+                }
+            }, {
                 test: /\.vue$/,
                 exclude: /^node_modules$/,//排除不处理的目录
-                use:[{
+                use: [{
                     loader: 'vue-loader',
                     options: {
                         loaders: {
-                            css: ExtractTextPlugin.extract({fallback:"style-loader",use:"css-loader"}),
-                            scss: ExtractTextPlugin.extract({fallback:"style-loader",use:["css-loader", "sass-loader"]})
+                            css: ExtractTextPlugin.extract({ fallback: "style-loader", use: "css-loader" }),
+                            scss: ExtractTextPlugin.extract({ fallback: "style-loader", use: ["css-loader", "sass-loader"] })
                         }
                     }
                 }]
             }, {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract({fallback:"style-loader",use:"css-loader"})
+                loader: ExtractTextPlugin.extract({ fallback: "style-loader", use: "css-loader" })
                 // use: ExtractTextPlugin.extract({fallback:"style-loader",use:["css-loader"]})
             }, {
-              test: /\.scss$/,
-              loader: ExtractTextPlugin.extract({fallback:"style-loader",use:["css-loader", "sass-loader"]})
+                test: /\.scss$/,
+                loader: ExtractTextPlugin.extract({ fallback: "style-loader", use: ["css-loader", "sass-loader"] })
             }, {
                 test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
                 loader: 'file-loader',

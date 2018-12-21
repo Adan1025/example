@@ -1,5 +1,9 @@
 // 用户管理
-let UsertRouter = [];
+let UsertRouter = [{
+    path: '/users/usersList',
+    name: 'usersList',
+    component: resolve => require(['@views/users/usersList.vue'], resolve)
+}];
 
 // 菜单接口管理
 let PowerRouter = [];

@@ -1,0 +1,5 @@
+{
+    "qualcBlog.userName": "493549174@qq.com",
+    "qualcBlog.articleTypeApiUrl": "http://localhost:7779/manage/vsarticle/savet",
+    "qualcBlog.articleApiUrl": "http://localhost:7779/manage/vsarticle/savea"
+}
