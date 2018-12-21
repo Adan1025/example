@@ -12,14 +12,15 @@ export class Article extends BaseEntity {
     @JoinColumn()
     users: Users;
 
-    // @Column('int', { length: 11, comment: '分类' })
-    // articleTypeId: number;
     @OneToOne(type => ArticleType)
     @JoinColumn()
     articleType: ArticleType;
 
     @ManyToOne(type => ArticleSeries, articleSeries => articleSeries.article)
     articleSeries: ArticleSeries;
+
+    @Column('int', { comment: '编码方式, 1 富文本  2 markdown', default: 1 })
+    coding: number;
 
     @Column('varchar', { length: 255, comment: '概要', nullable: true, default: '' })
     docreader: string;
@@ -35,7 +36,6 @@ export class Article extends BaseEntity {
 
     @Column('varchar', { length: 2555, comment: '标签', nullable: true })
     labelIds: string;
-
 
     @Column('int', { length: 11, comment: '赞', nullable: true, default: 0 })
     praise: number;

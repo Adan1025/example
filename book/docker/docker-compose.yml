@@ -1,0 +1,26 @@
+version: '2' # 表示使用哪个compose版本的语法
+networks:
+    ghost: # 定义网络
+
+services:
+    node: # 应用名称
+        build: node # base镜像
+        networks: # 所属网络
+            - ghost
+        volumes:
+            - $PWD/node:/home/data
+        command: index.js # 覆盖容器的默认命令，也就是覆盖Dockerfile中的cmd， 或者docker run xxx /bin/bash 命令的/bin/bash
+        entrypoint: node index.js # 和Dockerfile同理，会覆盖Dockerfile的定义
+        environment: # 设置镜像变量, 启动容器后也会附带这些变量
+            NODE_ENV: PRD
+        ports: # 映射端口
+            - 3000:3000
+
+    nginx:
+        build: nginx
+        networks:
+            - ghost
+        depends_on: # 依赖
+            - node
+        ports:
+            - 80:80
