@@ -1,0 +1,326 @@
+body {
+    font-family: 'Microsoft Yahei', Arial, sans-serif;
+}
+/* reset */
+.col-xs-1,
+.col-sm-1,
+.col-md-1,
+.col-lg-1,
+.col-xs-2,
+.col-sm-2,
+.col-md-2,
+.col-lg-2,
+.col-xs-3,
+.col-sm-3,
+.col-md-3,
+.col-lg-3,
+.col-xs-4,
+.col-sm-4,
+.col-md-4,
+.col-lg-4,
+.col-xs-5,
+.col-sm-5,
+.col-md-5,
+.col-lg-5,
+.col-xs-6,
+.col-sm-6,
+.col-md-6,
+.col-lg-6,
+.col-xs-7,
+.col-sm-7,
+.col-md-7,
+.col-lg-7,
+.col-xs-8,
+.col-sm-8,
+.col-md-8,
+.col-lg-8,
+.col-xs-9,
+.col-sm-9,
+.col-md-9,
+.col-lg-9,
+.col-xs-10,
+.col-sm-10,
+.col-md-10,
+.col-lg-10,
+.col-xs-11,
+.col-sm-11,
+.col-md-11,
+.col-lg-11,
+.col-xs-12,
+.col-sm-12,
+.col-md-12,
+.col-lg-12 {
+    padding: 0;
+}
+.row {
+    margin: 0;
+}
+.container {
+    padding: 0;
+    margin: 0;
+}
+input,
+select,
+button {
+    outline: none;
+    box-sizing: border-box;
+}
+ul {
+    padding: 0;
+}
+ul,
+ol {
+    margin-bottom: 0;
+}
+ul li,
+ol li {
+    list-style: none;
+}
+a:hover {
+    text-decoration: none;
+}
+/* 自定义样式 */
+.head {
+    background-color: #1f3666;
+    color: #fff;
+}
+.head-top {
+    border-bottom: 1px solid #fff;
+    /* border-bottom: 1px solid #4c5e85; */
+    padding: 15px 20px;
+}
+/* .head-nav {
+    padding: 0 20px;
+} */
+.switch-lang,
+.head-search {
+    color: #1f3666;
+    width: 100%;
+    border: 1px solid #1f3666;
+    height: 35px;
+    padding: 7px 10px;
+}
+.pc-holder-blue > input::-webkit-input-placeholder {
+    color: #1f3666;
+}
+.pc-holder-blue > .head-search input::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #1f3666;
+}
+.pc-holder-blue > .head-search input:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #1f3666;
+}
+.pc-holder-blue > .head-search input:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #1f3666;
+}
+.switch-lang {
+    width: 90%;
+}
+/* .head-drop-down button {
+    width: 90px;
+    text-align: left;
+} */
+/* .head-drop-down .caret {
+    position: absolute;
+    top: 15px;
+    right: 13px;
+}
+.switch-lang.dropdown-menu {
+    width: 90px;
+    min-width: 90px;
+    color: #1f3666;
+} */
+.head-search {
+    border-radius: 5px;
+}
+.head-nav .nav-tabs {
+    box-sizing: border-box;
+}
+.head-nav .nav-tabs a {
+    color: #fff;
+    font-weight: bold;
+    box-sizing: border-box;
+    border-right: 1px solid #ddd;
+}
+/* .head-nav .nav-tabs a:after {
+    content: '';
+    border-right: 1px solid #fff;
+} */
+.head-nav .nav-tabs li {
+    margin: 15px 0;
+}
+.head-nav .differ-li {
+    margin: 0;
+    border-right: 1px solid #fff;
+    padding: 15px 0;
+}
+.head-nav .differ-li img {
+    max-width: 8%;
+}
+.head-nav .nav-tabs .tab-menu {
+    position: relative;
+}
+
+.head-nav .nav-tabs li:last-child a,
+.head-nav .differ-li a {
+    border-right: 0;
+}
+.head-nav .nav-tabs > li:first-child > a {
+    padding: 0;
+}
+.head-nav .nav-tabs > li:first-child > a:hover {
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+    border-right: 0;
+    /* pointer-event: none; */
+}
+.nav > li > a:hover,
+.nav > li > a:focus {
+    /*---改动---*/
+    /* border: 0; */
+    background-color: #fff;
+    color: #1f3666;
+}
+.nav-tabs.nav-justified > li > a {
+    border-radius: 0;
+}
+.nav-tabs > li > a {
+    border: 0;
+}
+.sub-menu {
+    display: none;
+    background-color: #fff;
+    box-sizing: border-box;
+    padding: 0 20px;
+    position: absolute;
+    width: 100%;
+    top: 50px;
+    /* ---改动--- */
+    z-index: 999;
+}
+
+.nav-tabs .sub-menu li {
+    margin: 0;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+.nav-tabs .sub-menu li:last-child {
+    border-bottom: 0;
+}
+.nav-tabs .sub-menu li a {
+    border-right: 0;
+    color: #000;
+    padding: 15px 0;
+    display: inline-block;
+    width: 100%;
+}
+.wrapper-main {
+    background-color: #f0f2f5;
+}
+.page-title {
+    position: relative;
+    margin-top: 35px;
+}
+.page-title span {
+    font-weight: bold;
+    display: block;
+    font-size: 24px;
+    color: #babfcb;
+}
+.page-title span:last-child {
+    position: absolute;
+    top: 17px;
+    color: #0c0c0d;
+}
+.main-content-tab {
+    margin: 30px 0;
+    background-color: #fff;
+    padding: 40px;
+    overflow: hidden;
+}
+.air-service-tab ul {
+    overflow: hidden;
+}
+.air-service-tab ul li {
+    float: left;
+    padding: 10px 30px;
+    color: #3b70b3;
+    cursor: pointer;
+}
+.air-service-tab ul li:hover {
+    border-radius: 5px;
+    background-color: #3b70b3;
+    color: #fff;
+}
+.air-service-tab .curr {
+    border-radius: 5px;
+    background-color: #3b70b3;
+    color: #fff;
+}
+.air-service-content {
+    margin: 30px 0;
+    background-color: #fff;
+}
+.air-service-details1,
+.air-service-details2,
+.air-service-details3,
+.air-service-details4,
+.air-service-details5 {
+    display: none;
+}
+.fl-span {
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #3b70b3;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+}
+.fl-input {
+    padding: 9px 10px;
+    width: 95%;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+.fl-button {
+    width: 50%;
+    border: 0;
+}
+.footer {
+    background-color: #1f3666;
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+.footer a {
+    color: #fff;
+}
+.footer .footer-guide li {
+    padding: 5px 0;
+}
+.footer h4,
+.footer .footer-guide {
+    padding-left: 20px;
+}
+.copyright {
+    border-top: 1px solid #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+@media (min-width: 1280px) {
+    .container {
+        width: 1280px;
+        margin: 0 auto;
+    }
+}
+@media (min-width: 768px) {
+    .nav-tabs.nav-justified > li > a {
+        border-bottom: 0;
+        border-radius: 0;
+    }
+}
