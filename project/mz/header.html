@@ -1,145 +1,75 @@
-<style>
-
-    .head-nav .navbar-default{
-    background-color: #1f3666;
-}
-.head-nav .navbar{
-    margin-bottom : 0;
-    border: 0;
-}
-.head-nav .navbar-toggle{
-    float: none;
-    left: 5%;
-}
-.head-nav .icon-bar{
-    background: #fff;
-}
-.head .container-fluid,
-.head .navbar-collapse{
-    margin: 0;
-    padding: 0;
-}
-.head-nav .differ-li {
-    margin: 0;
-    border-right: 1px solid #fff;
-    padding: 15px 0;
-}
-.head-nav .differ-li img {
-    max-width: 8%;
-}
-
-
-.head .dropdown-menu{
-    width: 100%;
-    border: 0;
-    border-radius: 0;
-    box-shadow:none;
-    background: #fff;
-    text-align: left;
-}
-.head .dropdown-menu a{
-    /* color: #333; */
-    /* border-bottom: 1px solid #ddd; */
-    /* padding: 3px 0; */
-    /* margin:  0 20px; */
-}
-@media (max-width: 767px) {
-    .head .navbar-nav .open .dropdown-menu {
-    position: static;
-    float: none;
-    width: auto;
-    margin-top: 0;
-    background-color: #ffF;
-    border: 0;
-    -webkit-box-shadow: none;
-            box-shadow: none;
-  } 
-}
-
-.head .nav-tabs > li{
-    position: relative;;
-}
-.head .nav-tabs > li:before{
-    content:'';
-    position: absolute;
-    display: block;
-    left: 0;
-    width: 1px;
-    height: 60%;
-    top: 20%;
-    background-color: #fff;
-}
-
-.head .sub-curr,
-.head li.sub-curr > a,
-.nav .open > a, 
-.nav .open > a:hover, 
-.nav .open > a:focus{
-    background-color: #fff;
-    color: #333;
-}
-
-.head .sub-curr + li:before{
-    background-color: transparent;
-}
-</style>
 <header class="head">
-    <div class="row head-nav">
-        <!-- <ul class="nav nav-tabs nav-justified">
-
-        </ul> -->
-        <nav class="navbar" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <div class="collapse navbar-collapse" id="example-navbar-collapse">
-                    <div class="row head-top">
-                        <div class="col-md-3 col-xs-12">欢迎来到湖南机场官方网站</div>
-                        <div class="col-md-3 col-xs-12 pull-right">
-                            <div class="row">
-                                <div class="col-md-4 col-xs-6">
-                                    <select class="switch-lang" name="" id="">
-                                        <option value="中文">中文</option>
-                                        <option value="English">English</option>
-                                    </select>
-                                </div>
-
-                                <div class="col-md-8 col-xs-6 pc-holder-blue">
-                                    <input class=" head-search" type="text" placeholder="搜索" />
-                                </div>
-                            </div>
+    <div class="row shrink visible-xs-block">
+        <div class="menu-icon">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </div>
+        <div class="menu-search pull-right">
+            <!-- <span class="glyphicon glyphicon-search" aria-hidden="true"></span> -->
+            <span>搜索</span>
+        </div>
+    </div>
+    <div class="row head-form">
+        <div class="logo col-md-3 col-sm-3 hidden-xs hidden-sm">
+            <div>欢迎来到湖南机场官方网站</div>
+            <a href="#">
+                <img src="../images/test.jpeg" alt="">
+            </a>
+        </div>
+        <div class="head-right col-md-9 col-sm-12">
+            <div class="row head-top">
+                <div class="col-md-6 col-xs-12 pull-right">
+                    <div class="row">
+                        <div class="col-md-5 col-xs-6">
+                            <select class="switch-lang" name="" id="">
+                                <option value="中文">中文</option>
+                                <option value="English">English</option>
+                            </select>
+                        </div>
+                        <div class="col-md-7 col-xs-6 pc-holder-blue">
+                            <input class="head-search" type="text" placeholder="搜索" />
                         </div>
                     </div>
-                    <ul id="menuList" class="nav navbar-nav  nav-tabs nav-justified">
-                        <li class="differ-li">
-                            <a href=""><img src="../images/test.jpeg" alt="" /></a>
-                        </li>
-                        <li class="tab-menu dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">旅程</a>
-                            <ul class="sub-menu dropdown-menu">
-                                <li><a href="#">探索</a></li>
-                                <li><a href="#">集团</a></li>
-                                <li><a href="#">关于我们</a></li>
-                            </ul>
-                        </li>
-                        <li class="tab-menu dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">旅程</a>
-                            <ul class="sub-menu dropdown-menu">
-                                <li><a href="#">探索</a></li>
-                                <li><a href="#">集团</a></li>
-                                <li><a href="#">关于我们</a></li>
-                            </ul>
-                        </li>
-                        <li class="tab-menu"><a href="#">集团</a></li>
-                        <li class="tab-menu"><a href="#">关于我们</a></li>
-                    </ul>
                 </div>
             </div>
-        </nav>
-    </div>
+            <ul class="row menu">
+                <li class="tab-menu">
+                    <!-- submenu 属性，表示有子菜单-->
+                    <a href="#" submenu>旅程</a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#">item1</a>
+                        </li>
+                        <li>
+                            <a href="#">item2</a>
+                        </li>
+                        <li>
+                            <a href="#">item3</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="tab-menu">
+                    <a href="#" submenu>探索</a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="#">item4</a>
+                        </li>
+                        <li>
+                            <a href="#">item5</a>
+                        </li>
+                        <li>
+                            <a href="#">item6</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="tab-menu">
+                    <a href="#">集团</a>
+                </li>
+                <li class="tab-menu">
+                    <a href="#">关于我们</a>
+                </li>
+            </ul>
+            </ul>
+        </div>
 </header>
