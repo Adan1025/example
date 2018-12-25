@@ -18,46 +18,50 @@ $(function () {
             $(this).toggleClass('curr');
         });
         // 弹出搜索
-        $('.header').on('click', '.menu-search', function () {
-            // console.log($('.head-top').show())
+        $('.header').on('click', '.head-search', function () {
+            // ($('.head-top').show())
             $('.head-top').toggle();
         });
     } else {
         var ___timer = null;
+        var ___submenu = false;
         // 二级菜单
         $('.header').on('mouseover', '.tab-menu a', function () {
-            if (___timer) {
+            if (___timer && !___submenu) {
                 var curr = $('.tab-menu a.curr');
                 curr.next().hide();
                 curr.removeClass('curr');
                 clearTimeout(___timer);
             }
             var $this = $(this);
-
+            ___submenu = false;
             $this.next().show();
             $this.addClass('curr');
         });
         $('.header').on('mouseout', '.tab-menu a', function () {
             // var t = Date.now()
             if (___timer) clearTimeout(___timer);
+            if (___submenu) return;
             var $this = $(this);
             ___timer = setTimeout(function () {
-                // console.log('tab-menu-mouseout', Date.now() - t);
+                // ('tab-menu-mouseout', Date.now() - t);
                 $this.next().hide();
                 $this.removeClass('curr');
+                ___submenu = false;
             }, 100);
         });
-        $('.header').on('mouseover', '.tab-menu .sub-menu', function () {
+        $('.header').on('mouseover', '.tab-menu .sub-menu,.tab-menu .sub-menu li,.tab-menu .sub-menu a', function () {
             if (___timer) clearTimeout(___timer);
+            ___submenu = true;
         });
-        $('.header').on('mouseout', '.tab-menu .sub-menu', function () {
+        $('.header').on('mouseout', '.tab-menu .sub-menu', function (e) {
+            (e.target)
             if (___timer) clearTimeout(___timer);
             var $this = $(this);
-            // var t = Date.now()
             ___timer = setTimeout(function () {
-                // console.log('sub-menu-mouseout', Date.now() - t);
                 $this.hide();
                 $this.prev().removeClass('curr');
+                ___submenu = false;
             }, 100);
         });
     }
