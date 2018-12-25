@@ -14,63 +14,112 @@
         <!-- 禁止了把数字转化为拨号链接 -->
         <meta name="format-detection" content="telephone=no" />
         <!-- 浏览网站时的小图标 -->
-        <link
+        <!-- <link
             rel="shortcut icon"
             href="http://p.www.xiaomi.com/favicon.ico"
             type="/image/x-icon"
-        />
+        /> -->
         <!-- 添加至主屏时的图片 -->
-        <link
+        <!-- <link
             rel="apple-touch-icon-precomposed"
             href="http://a.tbcdn.cn/mw/s/hi/tbtouch/images/touch-icon.png"
-        />
+        /> -->
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <link rel="stylesheet" href="../css/bootstrap.css" />
         <link rel="stylesheet" href="../css/style.css" />
+        <link rel="stylesheet" href="../css/header.css" />
         <title>湖南机场官网</title>
     </head>
     <body>
         <div class="wrapper">
-            <div class="container"><header class="head"></header></div>
-            <div class="container wrapper-main">
+            <div class="container header"></div>
+            <div class="clearfix container wrapper-main">
                 <div class="page-title">
                     <span>The airport service</span> <span>机场服务 </span>
                 </div>
-                <div class="main-content-tab air-service-tab">
-                    <ul>
-                        <li class="air-service-list curr">轨道交通</li>
-                        <li class="air-service-list">地面公交</li>
-                        <li class="air-service-list">机场大巴</li>
-                        <li class="air-service-list">磁悬浮</li>
-                        <li class="air-service-list">出租车</li>
-                        <li class="air-service-list">停车场</li>
-                    </ul>
+                <div class="pc-air-service">
+                    <div class="main-content-tab air-service-tab">
+                        <ul>
+                            <li class="air-service-list curr">轨道交通</li>
+                            <li class="air-service-list">地面公交</li>
+                            <li class="air-service-list">机场大巴</li>
+                            <li class="air-service-list">磁悬浮</li>
+                            <li class="air-service-list">出租车</li>
+                            <li class="air-service-list">停车场</li>
+                        </ul>
+                    </div>
+                    <div class="air-service-content">
+                        <div class="air-service-details air-service-details0">
+                            content1
+                        </div>
+                        <div class="air-service-details air-service-details1">
+                            content2
+                        </div>
+                        <div class="air-service-details air-service-details2">
+                            content3
+                        </div>
+                        <div class="air-service-details air-service-details3">
+                            content4
+                        </div>
+                        <div class="air-service-details air-service-details4">
+                            content5
+                        </div>
+                        <div class="air-service-details air-service-details5">
+                            content6
+                        </div>
+                    </div>
                 </div>
-                <div class="air-service-content">
-                    <div class="air-service-details air-service-details0">
-                        content1
+                <div class="m-air-service">
+                    <div class="m-air-servicetab">
+                        <div class="btn-group" role="group">
+                            <button
+                                id="mAirSerTab"
+                                type="button"
+                                class="btn btn-default dropdown-toggle"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                            >
+                                机场服务 <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#content1">轨道交通</a></li>
+                                <li><a href="#content2">地面公交</a></li>
+                                <li><a href="#content3">机场大巴</a></li>
+                                <li><a href="#content4">磁悬浮</a></li>
+                                <li><a href="#content5">出租车</a></li>
+                                <li><a href="#content6">停车场</a></li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="air-service-details air-service-details1">
-                        content2
-                    </div>
-                    <div class="air-service-details air-service-details2">
-                        content3
-                    </div>
-                    <div class="air-service-details air-service-details3">
-                        content4
-                    </div>
-                    <div class="air-service-details air-service-details4">
-                        content5
-                    </div>
-                    <div class="air-service-details air-service-details5">
-                        content6
+                    <div class="air-service-content">
+                        <div id="content1" class="air-service-details">
+                            content1
+                        </div>
+                        <div id="content2" class="air-service-details">
+                            content2
+                        </div>
+                        <div id="content3" class="air-service-details">
+                            content3
+                        </div>
+                        <div id="content4" class="air-service-details">
+                            content4
+                        </div>
+                        <div id="content5" class="air-service-details">
+                            content5
+                        </div>
+                        <div id="content6" class="air-service-details">
+                            content6
+                        </div>
                     </div>
                 </div>
             </div>
+
             <footer class="footer"></footer>
         </div>
         <script src="../js/jquery.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
         <script src="../js/main.js"></script>
+        <script src="../js/_load.js"></script>
     </body>
 </html>

@@ -1,5 +1,6 @@
 body {
     font-family: 'Microsoft Yahei', Arial, sans-serif;
+    background-color: #f0f2f5;
 }
 /* reset */
 .col-xs-1,
@@ -79,13 +80,19 @@ ol li {
 a:hover {
     text-decoration: none;
 }
+.container > .navbar-header,
+.container-fluid > .navbar-header,
+.container > .navbar-collapse,
+.container-fluid > .navbar-collapse {
+    margin-right: 0;
+}
 /* 自定义样式 */
 .head {
     background-color: #1f3666;
     color: #fff;
 }
 .head-top {
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid #4c5e85;
     /* border-bottom: 1px solid #4c5e85; */
     padding: 15px 20px;
 }
@@ -155,7 +162,7 @@ a:hover {
 }
 .head-nav .differ-li {
     margin: 0;
-    border-right: 1px solid #fff;
+    border-right: 1px solid #4c5e85;
     padding: 15px 0;
 }
 .head-nav .differ-li img {
@@ -193,12 +200,40 @@ a:hover {
 .nav-tabs > li > a {
     border: 0;
 }
+.sub-menu {
+    /* ---改动--- */
+    display: none;
+    background-color: #fff;
+    box-sizing: border-box;
+    /* padding: 0 20px; */
+    position: absolute;
+    width: 100%;
+    top: 50px;
+    z-index: 999;
+}
+
+.nav-tabs .sub-menu li {
+    margin: 0;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+.nav-tabs .sub-menu li:last-child {
+    border-bottom: 0;
+}
+.nav-tabs .sub-menu li a {
+    border-right: 0;
+    color: #000;
+    padding: 15px 0;
+    display: inline-block;
+    width: 100%;
+}
 .wrapper-main {
     background-color: #f0f2f5;
 }
 .page-title {
     position: relative;
-    margin-top: 35px;
+    /* margin-top: 35px; */
+    margin: 35px 0;
 }
 .page-title span {
     font-weight: bold;
@@ -211,6 +246,7 @@ a:hover {
     top: 17px;
     color: #0c0c0d;
 }
+/* 机场服务 */
 .main-content-tab {
     margin: 30px 0;
     background-color: #fff;
@@ -247,13 +283,67 @@ a:hover {
 .air-service-details5 {
     display: none;
 }
+.m-air-servicetab {
+    position: absolute;
+    top: 50px;
+    width: 100%;
+}
+.m-air-servicetab .btn-group {
+    width: 100%;
+}
+.m-air-servicetab .btn-group > .btn:first-child {
+    border: 0;
+    border-radius: 0;
+    width: 100%;
+    text-align: left;
+    background-color: #1f3666;
+    color: #fff;
+    border-top: 1px solid #4c5e85;
+    border-bottom: 1px solid #4c5e85;
+    padding: 8px 12px;
+    font-size: 16px;
+}
+.m-air-servicetab .btn .caret {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+}
+.m-air-servicetab .dropdown-menu {
+    margin: 0;
+    width: 100%;
+    background-color: #1f3666;
+    padding: 0;
+}
+.m-air-servicetab .open > .dropdown-menu {
+    display: block;
+    border: 0;
+    border-radius: 0;
+}
+
+.m-air-servicetab .dropdown-menu > li > a {
+    color: #fff;
+    padding: 8px 12px;
+    border-bottom: 1px solid #4c5e85;
+}
+.m-air-servicetab .dropdown-menu > li:last-child > a {
+    border-bottom: 0;
+}
+.m-transform {
+    transform: rotate(180deg);
+}
+.m-air-service {
+    display: none;
+}
+/* 航班查询 */
 .fl-span {
-    padding: 10px 15px;
+    padding: 10px 0;
     border-radius: 5px;
     background-color: #3b70b3;
     color: #fff;
     text-align: center;
     display: inline-block;
+    margin-right: 20px;
+    width: 50%;
 }
 .fl-input {
     padding: 9px 10px;
@@ -265,11 +355,50 @@ a:hover {
     width: 50%;
     border: 0;
 }
+.fl-info {
+    background-color: #fff;
+}
+.cx-table {
+    width: 100%;
+}
+
+.cx-table tr {
+    border-bottom: 1px solid #e2e0e5;
+}
+.cx-table tr:last-child {
+    border-bottom: 0;
+}
+.cx-table tr th,
+.cx-table tr td {
+    text-align: center;
+    padding: 15px 0;
+}
+.cx-table tr th {
+    background-color: #339d66;
+    color: #fff;
+    border-bottom: 0;
+}
+.fl-tel {
+    margin: 15px 0;
+}
+.fl-title {
+    color: #339d66;
+    font-weight: bold;
+    font-size: 14px;
+}
+.fl-name-tel span {
+    display: inline-block;
+    padding-bottom: 3px;
+}
+.fl-name-tel span:first-child {
+    width: 18%;
+}
+
+/* 资讯中心 */
 .footer {
     background-color: #1f3666;
     color: #fff;
-    position: absolute;
-    bottom: 0;
+
     width: 100%;
 }
 .footer a {
@@ -283,20 +412,53 @@ a:hover {
     padding-left: 20px;
 }
 .copyright {
-    border-top: 1px solid #fff;
+    border-top: 1px solid #4c5e85;
     padding: 10px 0;
     text-align: center;
 }
-
+@media screen and (min-width: 320px) and (max-width: 460px) {
+    .fl-span {
+        width: 90%;
+    }
+    .main-content-tab {
+        padding: 10px;
+    }
+    .fl-tel {
+        margin: 15px 10px;
+    }
+    .fl-name-tel span:first-child {
+        width: auto;
+    }
+}
+@media (min-width: 768px) {
+    .container {
+        margin: 0 auto;
+    }
+    .nav-tabs.nav-justified > li > a {
+        border-bottom: 0;
+        border-radius: 0;
+    }
+    .main-content-tab {
+        padding: 20px;
+    }
+    .fl-name-tel span:first-child {
+        width: 26%;
+    }
+}
+@media (min-width: 992px) {
+    .main-content-tab {
+        padding: 40px;
+    }
+}
+@media (min-width: 1200px) {
+    .footer {
+        position: absolute;
+        bottom: 0;
+    }
+}
 @media (min-width: 1280px) {
     .container {
         width: 1280px;
         margin: 0 auto;
-    }
-}
-@media (min-width: 768px) {
-    .nav-tabs.nav-justified > li > a {
-        border-bottom: 0;
-        border-radius: 0;
     }
 }
